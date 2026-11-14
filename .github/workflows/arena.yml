@@ -7,7 +7,7 @@ on:
       - "scoreboard/**"
   pull_request:
   schedule:
-    # Hourly, seven minutes past. History is appended on main only when results change.
+    # Runs hourly at seven minutes past. History is only appended on main when results change.
     - cron: "7 * * * *"
   workflow_dispatch:
 
