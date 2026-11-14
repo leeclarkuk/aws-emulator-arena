@@ -1,7 +1,7 @@
 import ast
 
 from arena.classify import Expectation, classify, error
-from arena.report import build_scoreboard, history_point
+from arena.report import build_scoreboard, history_point, is_meaningful_change
 from arena.scenarios import ALL
 from arena.scenarios.event_pipeline import _WORKER
 from arena.scenarios.serverless_todo import _HANDLER
@@ -103,6 +103,65 @@ def test_scoreboard_wall_and_history_point():
     point = history_point(board)
     assert point["emulator_version"] == "1.0.364"
     assert point["not_implemented"] == 1
+
+
+def _demo_board(**overrides):
+    meta = {
+        "generated_at": "2026-11-14T00:00:00Z",
+        "emulator": {"version": "1.0.364", "commit": "abc", "startup_ms": 10, "rss_mb": 1},
+    }
+    meta.update({key: value for key, value in overrides.items() if key in ("generated_at",)})
+    if "emulator" in overrides:
+        meta["emulator"] = {**meta["emulator"], **overrides["emulator"]}
+    steps = overrides.get(
+        "steps",
+        [
+            _Step("ok", "s3", "CreateBucket", "pass", latency_ms=1.0),
+            _Step("missing", "ce", "GetCostAndUsage", "not_implemented", detail="scaffolded", http_status=501),
+        ],
+    )
+    calls = overrides.get(
+        "calls",
+        [{"service": "s3", "operation": "CreateBucket", "http_status": 200, "error_code": None, "latency_ms": 2.0}],
+    )
+    return build_scoreboard(
+        meta=meta,
+        scenarios=[_Scenario("demo", steps)],
+        calls=calls,
+    )
+
+
+def test_meaningful_change_ignores_timing_only():
+    base = _demo_board()
+    later = _demo_board(
+        generated_at="2026-11-14T01:00:00Z",
+        emulator={"startup_ms": 99, "rss_mb": 42},
+        calls=[{"service": "s3", "operation": "CreateBucket", "http_status": 200, "error_code": None, "latency_ms": 9.0}],
+    )
+    later["scenarios"][0]["steps"][0]["latency_ms"] = 9.0
+    assert is_meaningful_change(None, base) is True
+    assert is_meaningful_change(base, later) is False
+
+
+def test_meaningful_change_detects_emulator_outcome_and_counts():
+    base = _demo_board()
+    assert is_meaningful_change(base, _demo_board(emulator={"version": "1.0.365"})) is True
+    assert is_meaningful_change(base, _demo_board(emulator={"commit": "def"})) is True
+    flipped = _demo_board(
+        steps=[
+            _Step("ok", "s3", "CreateBucket", "divergent", detail="wrong"),
+            _Step("missing", "ce", "GetCostAndUsage", "not_implemented", detail="scaffolded", http_status=501),
+        ]
+    )
+    assert is_meaningful_change(base, flipped) is True
+    extra = _demo_board(
+        steps=[
+            _Step("ok", "s3", "CreateBucket", "pass"),
+            _Step("missing", "ce", "GetCostAndUsage", "not_implemented", detail="scaffolded", http_status=501),
+            _Step("later", "s3", "DeleteBucket", "blocked", detail="needs bucket"),
+        ]
+    )
+    assert is_meaningful_change(base, extra) is True
 
 
 def test_scenarios_are_registered_and_handlers_parse():

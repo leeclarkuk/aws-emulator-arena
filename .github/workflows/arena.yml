@@ -7,8 +7,8 @@ on:
       - "scoreboard/**"
   pull_request:
   schedule:
-    # Daily, after upstream tends to publish. History is appended on main.
-    - cron: "30 6 * * *"
+    # Hourly, seven minutes past. History is appended on main only when results change.
+    - cron: "7 * * * *"
   workflow_dispatch:
 
 permissions:
