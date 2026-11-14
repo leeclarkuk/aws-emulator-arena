@@ -149,6 +149,36 @@
         "s3": 100,
         "sqs": 100
       }
+    },
+    {
+      "generated_at": "2026-11-14T20:08:11Z",
+      "emulator_version": "1.0.385",
+      "emulator_commit": "813af480bf7f16d5418b64e4f5644a74a7da11c5",
+      "fidelity": 0.868421052631579,
+      "fidelity_pct": 87,
+      "steps": 76,
+      "pass": 66,
+      "not_implemented": 7,
+      "divergent": 3,
+      "blocked": 0,
+      "p50_ms": 2.69,
+      "startup_ms": 310.0,
+      "rss_mb": 298.5,
+      "services": {
+        "ce": 0,
+        "sso-admin": 50,
+        "organizations": 57,
+        "codebuild": 75,
+        "iam": 92,
+        "budgets": 100,
+        "cloudformation": 100,
+        "codepipeline": 100,
+        "dynamodb": 100,
+        "identitystore": 100,
+        "lambda": 100,
+        "s3": 100,
+        "sqs": 100
+      }
     }
   ]
 }
