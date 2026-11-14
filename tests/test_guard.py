@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -106,3 +107,18 @@ def test_render_escapes_markup(tmp_path):
     assert "<script>alert" not in html
     assert "\\u003c/script>" in report
     assert '"calls"' not in report
+    assert 'href="latest.json"' in html
+    assert "../scoreboard/latest.json" not in html
+    assert 'rel="canonical" href="https://leeclarkuk.github.io/aws-emulator-arena/"' in html
+    assert 'property="og:title"' in html
+    assert 'property="og:description"' in html
+    assert 'property="og:url" content="https://leeclarkuk.github.io/aws-emulator-arena/"' in html
+    assert 'property="og:image" content="https://leeclarkuk.github.io/aws-emulator-arena/og.png"' in html
+    assert 'name="twitter:card" content="summary_large_image"' in html
+    latest = json.loads((tmp_path / "latest.json").read_text(encoding="utf-8"))
+    assert latest["summary"]["fidelity_pct"] == 0
+    assert latest["wall_of_501"][0]["detail"].startswith("</script>")
+    from PIL import Image
+
+    with Image.open(tmp_path / "og.png") as image:
+        assert image.size == (1200, 630)

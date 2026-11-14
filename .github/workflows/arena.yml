@@ -43,7 +43,10 @@ jobs:
         run: python -m pytest -q tests/test_no_emdash.py
 
       - name: Install AWS Emulator
-        run: bash scripts/install-emulator.sh
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-dejavu-core
+          bash scripts/install-emulator.sh
 
       - name: Run the arena
         run: bash scripts/run.sh

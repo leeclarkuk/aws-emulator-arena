@@ -14,7 +14,7 @@ Arena is a scoreboard. A useful change is a new workflow, a sharper assertion, o
 
 1. Copy the shape below into `arena/scenarios/<slug>.py`.
 2. Register it in `arena/scenarios/__init__.py`. Order in that list is the order the arena runs.
-3. `python3 -m pytest -q tests`
+3. `make test`
 4. `make arena ARGS="--only <slug>"`
 
 ```python
@@ -66,7 +66,9 @@ make arena
 make serve   # http://127.0.0.1:8765
 ```
 
-`make arena` restarts the emulator on port 9297 so each run starts empty. Linux x86_64 or arm64 is required for the package. Elsewhere, use the Dockerfile in this repo.
+`make test` creates `.venv` if it is missing, installs `requirements-dev.txt` into it, and runs pytest with that interpreter. A fresh clone does not need a separate `pip install`. The same `.venv` is what `make arena` creates when the system Python cannot import boto3.
+
+`make arena` restarts the emulator on port 9297 so each run starts empty. It does not upgrade an emulator that is already installed. `make install-emulator` installs the latest signed package. Linux x86_64 or arm64 is required for the package. Elsewhere, use the Dockerfile in this repo.
 
 ## Reporting a gap
 

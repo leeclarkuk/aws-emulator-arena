@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from arena.preview import write_og_image
+from arena.report import dump_json
+
 WEB = Path(__file__).resolve().parent.parent / "web"
 
 
@@ -32,6 +35,10 @@ def render_site(scoreboard: dict, history: dict, destination: Path) -> Path:
     )
     page = destination / "index.html"
     page.write_text(html, encoding="utf-8")
+    # Pages only publishes this directory, so the noscript link and the
+    # social image have to live beside index.html.
+    dump_json(destination / "latest.json", scoreboard)
+    write_og_image(scoreboard, destination / "og.png")
     return page
 
 

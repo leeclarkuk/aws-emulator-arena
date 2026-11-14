@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PATH=/opt/venv/bin:$PATH
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl python3 python3-venv python3-pip gpg \
+    && apt-get install -y --no-install-recommends ca-certificates curl python3 python3-venv python3-pip gpg fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /arena
