@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: AWS Emulator on GitHub
+    url: https://github.com/aws/aws-emulator/issues
+    about: File defects in the emulator itself upstream once Arena has a reproduction.

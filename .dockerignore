@@ -1,0 +1,7 @@
+.venv
+.git
+site
+scoreboard
+docs
+**/__pycache__
+*.png
