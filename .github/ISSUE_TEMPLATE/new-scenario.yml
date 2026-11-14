@@ -1,0 +1,39 @@
+name: New scenario
+description: Propose a real-world workflow the arena should run.
+title: "scenario: "
+labels: ["scenario"]
+body:
+  - type: input
+    id: workflow
+    attributes:
+      label: Workflow
+      description: Name the job a team actually does. "Rotate a secret" beats "call PutSecretValue".
+      placeholder: Nightly order export
+    validations:
+      required: true
+  - type: input
+    id: services
+    attributes:
+      label: Services
+      description: boto3 names, comma-separated.
+      placeholder: s3, dynamodb, lambda
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this is worth a scenario
+      description: What would a passing or failing result tell someone choosing the emulator?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: A short list of API calls and what "behaved like AWS" means for each one.
+      placeholder: |
+        1. CreateQueue
+        2. SendMessage
+        3. ReceiveMessage returns the same body
+    validations:
+      required: true

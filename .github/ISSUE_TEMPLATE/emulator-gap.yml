@@ -1,0 +1,50 @@
+name: Emulator gap
+description: A step returned 501 or diverged from the behavior the scenario expects.
+title: "gap: "
+labels: ["emulator-gap"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Emulator version
+      description: From the scoreboard header, or `aws-emulator -v`.
+      placeholder: 1.0.364
+    validations:
+      required: true
+  - type: input
+    id: scenario
+    attributes:
+      label: Scenario slug
+      placeholder: finops-cost-report
+    validations:
+      required: true
+  - type: input
+    id: api
+    attributes:
+      label: Service and operation
+      placeholder: ce GetCostAndUsage
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What happened
+      options:
+        - 501 Not Implemented
+        - Divergent (the call returned, and it was wrong)
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What AWS would do
+      description: The behavior the scenario is asserting. No account ids, no keys.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the emulator did
+      description: Paste the step detail from the scoreboard. Do not paste credentials.
+    validations:
+      required: true
