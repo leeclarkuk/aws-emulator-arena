@@ -13,15 +13,11 @@ Each step lands in one of three piles: it behaved like AWS, the emulator returne
 
 ## Latest measured run
 
-Against AWS Emulator 1.0.365 (commit `3ec179ccf078`, released 2026-11-14), on this machine:
+The fidelity percentage, the passes, the 501s, and the divergences are on the [live board](https://leeclarkuk.github.io/aws-emulator-arena/) and in [`scoreboard/latest.json`](scoreboard/latest.json). The hourly job publishes the board on every run. It writes a new `scoreboard/latest.json` when the emulator version, the emulator commit, or the outcomes change.
 
-- 87% fidelity. 66 of 76 steps passed, 7 returned 501, 3 diverged. Nothing was blocked.
-- Startup 166 ms, RSS 296 MB. Call latency p50 3.35 ms, p95 6.35 ms, over 113 SDK calls. One `DescribeTable` took 3.0 s while a new table became active.
-- Passed cleanly: static site, serverless todo (the function really writes the item), the SQS to Lambda to DynamoDB pipeline (the order shows up in the table), and the CloudFormation stack (deleting the stack deletes the bucket).
+- Workflows that pass cleanly: the static site, the serverless todo (the function really writes the item), the SQS to Lambda to DynamoDB pipeline (the order shows up in the table), and the CloudFormation stack (deleting the stack deletes the bucket).
 - 501 Not Implemented: Organizations `ListAccounts`, `DescribeAccount`, `ListChildren`. Cost Explorer `GetCostAndUsage`, `GetDimensionValues`, `GetCostForecast`, `GetTags`. Budgets and an S3 cost export still work.
-- Divergent: CodeBuild reports `SUCCEEDED` with `logs=None` and a BUILD phase of 0 seconds, so the buildspec did not run. The only Identity Center instance rejects `CreatePermissionSet` (`ValidationException`: not supported for account instances). `SimulatePrincipalPolicy` says `implicitDeny` for the built-in `user/emulator` principal, and that same key lists buckets anyway. An explicit deny on that user is enforced, and so are denies for users the scenario creates.
-
-The numbers above are from the run committed in [`scoreboard/latest.json`](scoreboard/latest.json). The badge tracks `main` after that. Nothing here is a hand-written estimate.
+- Divergences: CodeBuild reports `SUCCEEDED` with `logs=None` and a BUILD phase of 0 seconds, so the buildspec did not run. The only Identity Center instance rejects `CreatePermissionSet` (`ValidationException`: not supported for account instances). `SimulatePrincipalPolicy` says `implicitDeny` for the built-in `user/emulator` principal, and that same key lists buckets anyway. An explicit deny on that user is enforced, and so are denies for users the scenario creates.
 
 ## Quickstart
 
@@ -33,6 +29,8 @@ make serve
 ```
 
 `make arena` installs the emulator if it is missing, checks the AWS package signature, starts it on `127.0.0.1:9297` with telemetry off, and writes `site/`. Open http://127.0.0.1:8765.
+
+`scripts/run.sh` leaves an emulator that is already installed, including an older one. Run `make install-emulator` when you want the local run to use the latest package. It downloads the current deb, checks the signature, and installs it.
 
 On a Mac or Windows machine, build the image (it installs the emulator) and run the same entrypoint:
 

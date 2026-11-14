@@ -1,5 +1,5 @@
 name: Emulator gap
-description: A step returned 501 or diverged from the behavior the scenario expects.
+description: A step returned 501 or diverged from the behaviour the scenario expects.
 title: "gap: "
 labels: ["emulator-gap"]
 body:
@@ -38,7 +38,7 @@ body:
     id: expected
     attributes:
       label: What AWS would do
-      description: The behavior the scenario is asserting. No account ids, no keys.
+      description: The behaviour the scenario is asserting. No account ids, no keys.
     validations:
       required: true
   - type: textarea
