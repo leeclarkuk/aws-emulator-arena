@@ -115,6 +115,12 @@ def test_render_escapes_markup(tmp_path):
     assert 'property="og:url" content="https://leeclarkuk.github.io/aws-emulator-arena/"' in html
     assert 'property="og:image" content="https://leeclarkuk.github.io/aws-emulator-arena/og.png"' in html
     assert 'name="twitter:card" content="summary_large_image"' in html
+    assert 'type="application/atom+xml"' in html
+    assert 'href="feed.xml"' in html
+    assert 'type="application/rss+xml"' in html
+    assert (tmp_path / "gallery.html").is_file()
+    assert (tmp_path / "feed.xml").is_file()
+    assert (tmp_path / "rss.xml").is_file()
     latest = json.loads((tmp_path / "latest.json").read_text(encoding="utf-8"))
     assert latest["summary"]["fidelity_pct"] == 0
     assert latest["wall_of_501"][0]["detail"].startswith("</script>")

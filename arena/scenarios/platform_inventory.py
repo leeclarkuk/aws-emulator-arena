@@ -110,23 +110,47 @@ def list_ous(aws, state):
         raise AssertionError("OU was created but is not listed")
 
 
-@scenario.step("List accounts in the organization", service="organizations", operation="ListAccounts")
+@scenario.step(
+    "List accounts in the organization",
+    service="organizations",
+    operation="ListAccounts",
+    aws_would="On AWS, ListAccounts returns the accounts in the organisation, including the management account.",
+)
 def list_accounts(aws, state):
     aws.client("organizations").list_accounts()
 
 
-@scenario.step("Describe the management account", service="organizations", operation="DescribeAccount")
+@scenario.step(
+    "Describe the management account",
+    service="organizations",
+    operation="DescribeAccount",
+    aws_would="On AWS, DescribeAccount returns the name, email, status, and the time the account joined.",
+)
 def describe_account(aws, state):
     aws.client("organizations").describe_account(AccountId="000000000000")
 
 
-@scenario.step("List children of the root", service="organizations", operation="ListChildren")
+@scenario.step(
+    "List children of the root",
+    service="organizations",
+    operation="ListChildren",
+    aws_would="On AWS, ListChildren lists the organisational units or accounts directly under the parent you give it.",
+)
 def list_children(aws, state):
     state.need("root_id")
     aws.client("organizations").list_children(ParentId=state["root_id"], ChildType="ORGANIZATIONAL_UNIT")
 
 
-@scenario.step("Create a permission set", service="sso-admin", operation="CreatePermissionSet")
+@scenario.step(
+    "Create a permission set",
+    service="sso-admin",
+    operation="CreatePermissionSet",
+    aws_would=(
+        "On AWS, CreatePermissionSet on an organisation instance of IAM Identity Center "
+        "returns a permission set with an ARN. That is how a platform team defines an access set. "
+        "The call is rejected on an account instance, which does not support permission sets."
+    ),
+)
 def create_permission_set(aws, state):
     state.need("instance_arn")
     created = aws.client("sso-admin").create_permission_set(

@@ -101,6 +101,26 @@ header.top {
   justify-content: flex-end;
 }
 
+.board-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: -8px;
+  padding-bottom: var(--space-sm);
+  font-size: 14px;
+}
+
+.board-nav a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section-link {
+  margin: -8px 0 var(--space-sm);
+  font-size: 14px;
+}
+
 .pill {
   background: var(--chip);
   border-radius: var(--radius-pill);
@@ -511,6 +531,99 @@ a:focus-visible {
   background: var(--diverge-soft);
   border-radius: var(--radius-pill);
   padding: 4px 10px;
+}
+
+.note .badge.gap {
+  color: var(--gap);
+  background: var(--gap-soft);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.gallery-lede {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+}
+
+.gallery-card {
+  scroll-margin-top: 24px;
+}
+
+.card-kicker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-kicker .badge {
+  margin-bottom: 0;
+}
+
+.gallery-card h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.gallery-card .opname {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gallery-card h4 {
+  margin: 18px 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gallery-card .headline {
+  margin: 14px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.gallery-card .finding {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.gallery-card pre.observed {
+  margin: 8px 0 0;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+.gallery-card .seen {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.permalink {
+  font-size: 13px;
 }
 
 .lower {

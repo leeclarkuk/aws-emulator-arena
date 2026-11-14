@@ -19,6 +19,16 @@ class State(dict):
     def __init__(self, run_id: str):
         super().__init__()
         self.run_id = run_id
+        self.observed = None
+
+    def observe(self, payload) -> None:
+        """Remember the key fields of what came back, for the gallery.
+
+        The runner keeps this only when the step does not pass, then redacts
+        secret-looking fields and trims long values. Do not put keys in it.
+        """
+
+        self.observed = payload
 
     def rid(self, prefix: str) -> str:
         """A name unique to this run. Safe for buckets, queues, and functions."""
@@ -38,6 +48,7 @@ class Step:
     operation: str
     expect: Expectation
     fn: Callable
+    aws_would: str = ""
 
 
 class Scenario:
@@ -48,14 +59,34 @@ class Scenario:
         self.services = list(services)
         self.steps: list[Step] = []
 
-    def step(self, title: str, *, service: str, operation: str, expect: Expectation | None = None):
-        """Register the next step. Steps run in definition order."""
+    def step(
+        self,
+        title: str,
+        *,
+        service: str,
+        operation: str,
+        expect: Expectation | None = None,
+        aws_would: str | None = None,
+    ):
+        """Register the next step. Steps run in definition order.
+
+        aws_would is a plain sentence about what AWS would do. The gallery
+        prints it next to the response the emulator actually returned.
+        """
 
         expectation = expect if expect is not None else Expectation()
+        note = (aws_would or "").strip()
 
         def decorate(fn: Callable) -> Callable:
             self.steps.append(
-                Step(title=title, service=service, operation=operation, expect=expectation, fn=fn)
+                Step(
+                    title=title,
+                    service=service,
+                    operation=operation,
+                    expect=expectation,
+                    fn=fn,
+                    aws_would=note,
+                )
             )
             return fn
 
