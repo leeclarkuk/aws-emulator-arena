@@ -1,25 +1,25 @@
 # AWS Emulator Arena
 
-The [AWS Emulator](https://docs.aws.amazon.com/emulator/) runs the AWS APIs on your laptop. Arena runs the workflows a team would actually ship — a todo API, a static site, a queue worker, a CloudFormation stack, an account audit, a cost report, a pipeline, an IAM review — and publishes what happened.
+The [AWS Emulator](https://docs.aws.amazon.com/emulator/) runs the AWS APIs on your laptop. Arena runs the workflows a team would actually ship (a todo API, a static site, a queue worker, a CloudFormation stack, an account audit, a cost report, a pipeline, an IAM review) and publishes what happened.
 
 [![Arena](https://github.com/leeclarkuk/aws-emulator-arena/actions/workflows/arena.yml/badge.svg)](https://github.com/leeclarkuk/aws-emulator-arena/actions/workflows/arena.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-f4efe6?labelColor=100e0c&color=e7ff3a)](LICENSE)
-[![Fidelity](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.summary.fidelity_pct&suffix=%25&label=fidelity&labelColor=100e0c&color=e7ff3a)](https://leeclarkuk.github.io/aws-emulator-arena/)
-[![Emulator](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.emulator.version&label=emulator&labelColor=100e0c&color=f3ecdf)](https://github.com/aws/aws-emulator/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-191c1f?labelColor=f7f7f7&color=0666eb)](LICENSE)
+[![Fidelity](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.summary.fidelity_pct&suffix=%25&label=fidelity&labelColor=f7f7f7&color=1a7f4b)](https://leeclarkuk.github.io/aws-emulator-arena/)
+[![Emulator](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.emulator.version&label=emulator&labelColor=f7f7f7&color=191c1f)](https://github.com/aws/aws-emulator/releases)
 
-Each step lands in one of three piles: it behaved like AWS, the emulator returned **501 Not Implemented**, or it answered and the answer was wrong. Latency is recorded per SDK call. A daily GitHub Actions run installs the current emulator, appends a point to `scoreboard/history.json`, and publishes the board.
+Each step lands in one of three piles: it behaved like AWS, the emulator returned 501 Not Implemented, or it answered and the answer was wrong. Latency is recorded per SDK call. A daily GitHub Actions run installs the current emulator, appends a point to `scoreboard/history.json`, and publishes the board.
 
 ![Scoreboard](docs/scoreboard.png)
 
 ## Latest measured run
 
-Against AWS Emulator **1.0.364** (commit `7496e0fe6a47`, released 2026-11-14), on this machine:
+Against AWS Emulator 1.0.365 (commit `3ec179ccf078`, released 2026-11-14), on this machine:
 
-- **87% fidelity.** 66 of 76 steps passed, 7 returned 501, 3 diverged. Nothing was blocked.
-- **Startup 254 ms, RSS 294 MB.** Call latency p50 **3.67 ms**, p95 47 ms, over 112 SDK calls. One `DescribeTable` took 3.0 s while a new table became active.
-- **Passed cleanly:** static site, serverless todo (the function really writes the item), the SQS → Lambda → DynamoDB pipeline (the order shows up in the table), and the CloudFormation stack (deleting the stack deletes the bucket).
-- **501 Not Implemented:** Organizations `ListAccounts`, `DescribeAccount`, `ListChildren`. Cost Explorer `GetCostAndUsage`, `GetDimensionValues`, `GetCostForecast`, `GetTags`. Budgets and an S3 cost export still work.
-- **Divergent:** CodeBuild reports `SUCCEEDED` with `logs=None` and a BUILD phase of 0 seconds, so the buildspec did not run. The only Identity Center instance rejects `CreatePermissionSet` (`ValidationException`: not supported for account instances). `SimulatePrincipalPolicy` says `implicitDeny` for the built-in `user/emulator` principal, and that same key lists buckets anyway. An explicit deny on that user is enforced, and so are denies for users the scenario creates.
+- 87% fidelity. 66 of 76 steps passed, 7 returned 501, 3 diverged. Nothing was blocked.
+- Startup 166 ms, RSS 296 MB. Call latency p50 3.35 ms, p95 6.35 ms, over 113 SDK calls. One `DescribeTable` took 3.0 s while a new table became active.
+- Passed cleanly: static site, serverless todo (the function really writes the item), the SQS to Lambda to DynamoDB pipeline (the order shows up in the table), and the CloudFormation stack (deleting the stack deletes the bucket).
+- 501 Not Implemented: Organizations `ListAccounts`, `DescribeAccount`, `ListChildren`. Cost Explorer `GetCostAndUsage`, `GetDimensionValues`, `GetCostForecast`, `GetTags`. Budgets and an S3 cost export still work.
+- Divergent: CodeBuild reports `SUCCEEDED` with `logs=None` and a BUILD phase of 0 seconds, so the buildspec did not run. The only Identity Center instance rejects `CreatePermissionSet` (`ValidationException`: not supported for account instances). `SimulatePrincipalPolicy` says `implicitDeny` for the built-in `user/emulator` principal, and that same key lists buckets anyway. An explicit deny on that user is enforced, and so are denies for users the scenario creates.
 
 The numbers above are from the run committed in [`scoreboard/latest.json`](scoreboard/latest.json). The badge tracks `main` after that. Nothing here is a hand-written estimate.
 
@@ -53,7 +53,7 @@ make arena ARGS="--only static-site"
 ## How a run is scored
 
 ```text
-scenario file  →  boto3, loopback only  →  scoreboard/latest.json
+scenario file  ->  boto3, loopback only  ->  scoreboard/latest.json
                                               scoreboard/history.json
                                               site/index.html
 ```
@@ -143,7 +143,7 @@ Open a [scenario proposal](https://github.com/leeclarkuk/aws-emulator-arena/issu
 
 The scoreboard is a static page. It has no backend. The data is inlined, so it works at a project-pages URL.
 
-One manual step before the live URL exists: in the repository settings, open **Pages** and set the source to **GitHub Actions**. The first deploy also needs the default `GITHUB_TOKEN` to be allowed to write to `main` (Settings → Actions → General → Workflow permissions → Read and write). Branch protection that blocks the `github-actions` bot will keep the chart from gaining points; the Pages deploy in that same job will not run either.
+One manual step before the live URL exists: in the repository settings, open Pages and set the source to GitHub Actions. The first deploy also needs the default `GITHUB_TOKEN` to be allowed to write to `main` (Settings, Actions, General, Workflow permissions, Read and write). Branch protection that blocks the `github-actions` bot will keep the chart from gaining points; the Pages deploy in that same job will not run either.
 
 ## Layout
 
