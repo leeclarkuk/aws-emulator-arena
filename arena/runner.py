@@ -11,7 +11,15 @@ from dataclasses import dataclass
 from arena import __version__
 from arena.aws import FATAL, open_session
 from arena.classify import classify
-from arena.report import append_history, build_scoreboard, dump_json, history_point, utc_now
+from arena.report import (
+    append_history,
+    build_scoreboard,
+    dump_json,
+    history_point,
+    is_meaningful_change,
+    load_json,
+    utc_now,
+)
 from arena.render import render_site
 from arena.scenarios import ALL
 
@@ -177,8 +185,14 @@ def main(argv: list[str] | None = None) -> int:
 
     out = Path(args.out)
     history_path = Path(args.history)
-    dump_json(out, scoreboard)
-    history = append_history(history_path, history_point(scoreboard))
+    previous = load_json(out)
+    if is_meaningful_change(previous, scoreboard):
+        dump_json(out, scoreboard)
+        history = append_history(history_path, history_point(scoreboard))
+        recorded = "recorded"
+    else:
+        history = load_json(history_path) or {"runs": []}
+        recorded = "unchanged (timing only)"
     page = render_site(scoreboard, history, Path(args.site))
     summary = scoreboard["summary"]
     fidelity = summary["fidelity_pct"]
@@ -190,7 +204,7 @@ def main(argv: list[str] | None = None) -> int:
         f"p50 {latency['p50']}ms over {latency['n']} calls",
         flush=True,
     )
-    print(f"wrote {out}  {history_path}  {page}", flush=True)
+    print(f"wrote {page}; scoreboard {recorded}", flush=True)
     return 0
 
 

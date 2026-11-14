@@ -175,6 +175,48 @@ def history_point(scoreboard: dict) -> dict:
     }
 
 
+def meaningful_fingerprint(scoreboard: dict) -> dict:
+    """Fields that justify a new history point and a scoreboard commit.
+
+    Timing (latency, startup_ms, rss, generated_at) is deliberately omitted.
+    """
+    summary = scoreboard["summary"]
+    emulator = scoreboard["emulator"]
+    return {
+        "emulator_version": emulator.get("version"),
+        "emulator_commit": emulator.get("commit"),
+        "steps": summary["steps"],
+        "pass": summary["pass"],
+        "not_implemented": summary["not_implemented"],
+        "divergent": summary["divergent"],
+        "blocked": summary["blocked"],
+        "step_outcomes": [
+            {
+                "scenario": scenario["slug"],
+                "title": step["title"],
+                "service": step["service"],
+                "operation": step["operation"],
+                "outcome": step["outcome"],
+            }
+            for scenario in scoreboard["scenarios"]
+            for step in scenario["steps"]
+        ],
+    }
+
+
+def is_meaningful_change(previous: dict | None, current: dict) -> bool:
+    """True when the new scoreboard differs from the previous one in a way that should be recorded."""
+    if previous is None:
+        return True
+    return meaningful_fingerprint(previous) != meaningful_fingerprint(current)
+
+
+def load_json(path: Path) -> dict | None:
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def append_history(path: Path, point: dict, *, limit: int = 400) -> dict:
     if path.exists():
         data = json.loads(path.read_text(encoding="utf-8"))

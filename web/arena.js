@@ -164,7 +164,7 @@ function divergences() {
 function trend() {
   const runs = history.runs || [];
   return el("section", {}, [
-    head("Over time", "One point per arena run. The daily job appends the next emulator release."),
+    head("Over time", "One point per arena run. The hourly job appends the next emulator release."),
     el("div", { class: "panel" }, [
       runs.length ? chart(runs) : el("p", { class: "empty" }, ["No history yet."]),
     ]),

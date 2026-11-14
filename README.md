@@ -7,7 +7,7 @@ The [AWS Emulator](https://docs.aws.amazon.com/emulator/) runs the AWS APIs on y
 [![Fidelity](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.summary.fidelity_pct&suffix=%25&label=fidelity&labelColor=f7f7f7&color=1a7f4b)](https://leeclarkuk.github.io/aws-emulator-arena/)
 [![Emulator](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fleeclarkuk%2Faws-emulator-arena%2Fmain%2Fscoreboard%2Flatest.json&query=%24.emulator.version&label=emulator&labelColor=f7f7f7&color=191c1f)](https://github.com/aws/aws-emulator/releases)
 
-Each step lands in one of three piles: it behaved like AWS, the emulator returned 501 Not Implemented, or it answered and the answer was wrong. Latency is recorded per SDK call. A daily GitHub Actions run installs the current emulator, appends a point to `scoreboard/history.json`, and publishes the board.
+Each step lands in one of three piles: it behaved like AWS, the emulator returned 501 Not Implemented, or it answered and the answer was wrong. Latency is recorded per SDK call. An hourly GitHub Actions run installs the current emulator, appends a point to `scoreboard/history.json` when results change, and publishes the board.
 
 ![Scoreboard](docs/scoreboard.png)
 
@@ -137,9 +137,9 @@ make arena ARGS="--only hello-bucket"
 
 Open a [scenario proposal](https://github.com/leeclarkuk/aws-emulator-arena/issues/new?template=new-scenario.yml) if you would rather discuss the workflow before writing it, or an [emulator gap](https://github.com/leeclarkuk/aws-emulator-arena/issues/new?template=emulator-gap.yml) when a step comes back 501 or divergent.
 
-## The board, every day
+## The board, every hour
 
-[`.github/workflows/arena.yml`](.github/workflows/arena.yml) installs the latest signed package, runs the arena on every pull request, and on a push to `main`. A schedule (`30 6 * * *` UTC) does the same so a new emulator release shows up as the next point on the chart. On `main` the workflow commits `scoreboard/latest.json` and `scoreboard/history.json`, then deploys `site/` with `actions/deploy-pages`.
+[`.github/workflows/arena.yml`](.github/workflows/arena.yml) installs the latest signed package, runs the arena on every pull request, and on a push to `main`. A schedule (`7 * * * *` UTC) does the same so a new emulator release shows up as the next point on the chart. On `main` the workflow commits `scoreboard/latest.json` and `scoreboard/history.json` only when the emulator version or commit, a step outcome, or the summary counts changed; timing-only noise is skipped. Every scheduled run still deploys `site/` with `actions/deploy-pages` so the board's ran timestamp stays fresh.
 
 The scoreboard is a static page. It has no backend. The data is inlined, so it works at a project-pages URL.
 
