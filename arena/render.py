@@ -15,7 +15,7 @@ def render_site(scoreboard: dict, history: dict, destination: Path) -> Path:
     public = {key: value for key, value in scoreboard.items() if key != "calls"}
     fidelity = scoreboard["summary"]["fidelity_pct"]
     version = scoreboard["emulator"].get("version") or "unknown"
-    title = f"{fidelity}% fidelity · AWS Emulator Arena" if fidelity is not None else "AWS Emulator Arena"
+    title = f"{fidelity}% fidelity | AWS Emulator Arena" if fidelity is not None else "AWS Emulator Arena"
     description = (
         f"AWS Emulator {version}: {fidelity}% of arena steps behaved like AWS. "
         f"{scoreboard['summary']['not_implemented']} returned 501, "

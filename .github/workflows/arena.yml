@@ -39,6 +39,9 @@ jobs:
       - name: Unit tests
         run: python -m pytest -q tests
 
+      - name: Reject em dashes in tracked text
+        run: python -m pytest -q tests/test_no_emdash.py
+
       - name: Install AWS Emulator
         run: bash scripts/install-emulator.sh
 

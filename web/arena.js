@@ -23,25 +23,25 @@ function header() {
     el("div", { class: "brand" }, [
       el("div", { class: "mark" }),
       el("div", {}, [
-        el("h1", {}, ["AWS Emulator ", el("em", {}, ["Arena"])]),
+        el("h1", {}, ["AWS Emulator Arena"]),
         el("p", {}, ["Local fidelity board"]),
       ]),
     ]),
     el("div", { class: "pills" }, [
       pill("emulator", emulator.version || "unknown"),
-      pill("account", emulator.account || "—"),
+      pill("account", emulator.account || "-"),
       pill("startup", ms(emulator.startup_ms)),
-      pill("rss", emulator.rss_mb == null ? "—" : `${emulator.rss_mb} MB`),
+      pill("rss", emulator.rss_mb == null ? "-" : `${emulator.rss_mb} MB`),
       pill("ran", when(report.generated_at)),
     ]),
   ]);
 }
 
 function hero() {
-  const pct = summary.fidelity_pct == null ? "—" : String(summary.fidelity_pct);
+  const pct = summary.fidelity_pct == null ? "-" : String(summary.fidelity_pct);
   const scored = summary.pass + summary.not_implemented + summary.divergent;
   return el("section", { class: "hero" }, [
-    el("div", {}, [
+    el("div", { class: "hero-card" }, [
       el("p", { class: "kicker" }, ["Fidelity"]),
       el("div", { class: "scoreline" }, [
         el("p", { class: `score ${scoreClass}` }, [pct]),
@@ -58,7 +58,7 @@ function hero() {
       stat(summary.pass, "passed", "pass"),
       stat(summary.not_implemented, "501 not implemented", "gap"),
       stat(summary.divergent, "divergent", "div"),
-      stat(summary.latency_ms.p50 == null ? "—" : ms(summary.latency_ms.p50), `p50 over ${summary.latency_ms.n} calls`, ""),
+      stat(summary.latency_ms.p50 == null ? "-" : ms(summary.latency_ms.p50), `p50 over ${summary.latency_ms.n} calls`, ""),
     ]),
   ]);
 }
@@ -77,7 +77,7 @@ function genome() {
     el("div", { class: "genome", role: "img", "aria-label": "Every step in this run, in order" },
       steps.map(({ scenario, step }) => {
         const mark = el("b", { class: step.outcome });
-        mark.title = `${scenario.title} · ${step.operation} · ${label(step.outcome)}`;
+        mark.title = `${scenario.title}: ${step.operation} (${label(step.outcome)})`;
         return mark;
       })
     ),
@@ -101,14 +101,14 @@ function scenarioCard(scenario) {
   ]);
   const summaryEl = el("summary", {}, [
     body,
-    el("div", { class: "pct" }, [scenario.fidelity_pct == null ? "—" : `${scenario.fidelity_pct}%`]),
+    el("div", { class: "pct" }, [scenario.fidelity_pct == null ? "-" : `${scenario.fidelity_pct}%`]),
   ]);
   const list = el("ol", { class: "steps" }, scenario.steps.map((step) => {
     const item = el("li", {}, [
       el("span", { class: `outcome ${step.outcome}` }, [label(step.outcome)]),
       el("span", {}, [
         step.title,
-        el("div", { class: "op" }, [`${step.service_name} · ${step.operation}`]),
+        el("div", { class: "op" }, [`${step.service_name} ${step.operation}`]),
       ]),
       el("span", { class: "ms" }, [ms(step.latency_ms)]),
     ]);
@@ -123,11 +123,11 @@ function scenarioCard(scenario) {
 function services() {
   return el("section", {}, [
     head("Services", "Share of steps that passed."),
-    ...report.services.map((row) => el("div", { class: "service" }, [
+    el("div", { class: "services-panel" }, report.services.map((row) => el("div", { class: "service" }, [
       el("div", { class: "name" }, [row.name]),
       bar(row),
-      el("div", { class: "pct" }, [row.fidelity_pct == null ? "—" : `${row.fidelity_pct}%`]),
-    ])),
+      el("div", { class: "pct" }, [row.fidelity_pct == null ? "-" : `${row.fidelity_pct}%`]),
+    ]))),
   ]);
 }
 
@@ -138,7 +138,7 @@ function wall() {
     cards.length
       ? el("div", { class: "wall" }, cards.map((gap) => el("article", { class: "ticket" }, [
           el("p", { class: "code" }, ["501"]),
-          el("p", { class: "opname" }, [`${gap.service_name} · ${gap.operation}`]),
+          el("p", { class: "opname" }, [`${gap.service_name} ${gap.operation}`]),
           el("p", { class: "where" }, [gap.scenario_title]),
           el("p", { class: "msg" }, [gap.detail || gap.title]),
         ])))
@@ -152,9 +152,10 @@ function divergences() {
     head("Divergences", "The call returned, and it was not what the workflow needed."),
     rows.length
       ? el("div", { class: "divs" }, rows.map((row) => el("article", { class: "note" }, [
+          el("span", { class: "badge" }, ["divergent"]),
           el("h3", {}, [row.title]),
-          el("p", { class: "where" }, [`${row.scenario_title} · ${row.service_name} ${row.operation}`]),
-          el("p", { class: "msg" }, [row.detail || "Behavior did not match the scenario."]),
+          el("p", { class: "where" }, [`${row.scenario_title}: ${row.service_name} ${row.operation}`]),
+          el("p", { class: "msg" }, [row.detail || "Behaviour did not match the scenario."]),
         ])))
       : el("p", { class: "empty" }, ["No divergent calls in this run."]),
   ]);
@@ -164,7 +165,9 @@ function trend() {
   const runs = history.runs || [];
   return el("section", {}, [
     head("Over time", "One point per arena run. The daily job appends the next emulator release."),
-    runs.length ? chart(runs) : el("p", { class: "empty" }, ["No history yet."]),
+    el("div", { class: "panel" }, [
+      runs.length ? chart(runs) : el("p", { class: "empty" }, ["No history yet."]),
+    ]),
   ]);
 }
 
@@ -178,12 +181,16 @@ function chart(runs) {
   const ys = runs.map((run) => pad.t + innerH * (1 - (run.fidelity_pct || 0) / 100));
   const d = xs.map((x, i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(" ");
   const svg = svgEl("svg", { class: "trend", viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": "Fidelity over emulator runs" });
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (innerH * i) / 4;
+    svg.append(svgEl("line", { class: "grid", x1: pad.l, y1: y, x2: width - pad.r, y2: y }));
+  }
   svg.append(svgEl("line", { class: "axis", x1: pad.l, y1: pad.t + innerH, x2: width - pad.r, y2: pad.t + innerH }));
   if (runs.length > 1) svg.append(svgEl("path", { class: "line", d }));
   xs.forEach((x, i) => {
-    const dot = svgEl("circle", { class: "dot", cx: x, cy: ys[i], r: 4 });
+    const dot = svgEl("circle", { class: "dot", cx: x, cy: ys[i], r: 3 });
     const title = svgEl("title");
-    title.textContent = `${runs[i].emulator_version || "run"} · ${runs[i].fidelity_pct}%`;
+    title.textContent = `${runs[i].emulator_version || "run"}: ${runs[i].fidelity_pct}%`;
     dot.append(title);
     svg.append(dot);
   });
@@ -212,7 +219,7 @@ function latency() {
   ]);
   return el("section", {}, [
     head("Latency", "Wire time per SDK call, measured inside the arena."),
-    table,
+    el("div", { class: "panel" }, [table]),
   ]);
 }
 
@@ -264,14 +271,14 @@ function label(outcome) {
 }
 
 function ms(value) {
-  if (value == null || value === "") return "—";
+  if (value == null || value === "") return "-";
   const n = Number(value);
-  if (Number.isNaN(n)) return "—";
+  if (Number.isNaN(n)) return "-";
   return n >= 100 ? `${Math.round(n)} ms` : `${n.toFixed(n >= 10 ? 1 : 2)} ms`;
 }
 
 function when(iso) {
-  if (!iso) return "—";
+  if (!iso) return "-";
   return iso.replace("T", " ").replace("Z", " UTC");
 }
 
