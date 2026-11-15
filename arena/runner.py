@@ -8,9 +8,12 @@ import sys
 import time
 from dataclasses import dataclass
 
+from botocore.exceptions import ClientError
+
 from arena import __version__
 from arena.aws import FATAL, open_session
 from arena.classify import classify
+from arena.redact import public_copy
 from arena.report import (
     append_history,
     build_scoreboard,
@@ -34,6 +37,8 @@ class StepResult:
     detail: str
     http_status: int | None
     error_code: str | None
+    aws_would: str = ""
+    observed: dict | list | None = None
 
 
 @dataclass
@@ -65,6 +70,9 @@ def attach_call_log(session, sink: list) -> None:
                 "http_status": getattr(http_response, "status_code", None),
                 "error_code": error_code,
                 "latency_ms": (time.perf_counter() - started) * 1000,
+                # Trimmed here so a stream or a secret never sits on the call list.
+                # build_scoreboard does not copy this field into latest.json.
+                "parsed": public_copy(parsed) if isinstance(parsed, dict) else None,
             }
         )
 
@@ -80,6 +88,7 @@ def run_scenario(scenario, aws, calls: list) -> ScenarioResult:
     state = State(os.environ.get("ARENA_RUN_ID") or _run_id())
     results = []
     for step in scenario.steps:
+        state.observed = None
         before = len(calls)
         started = time.perf_counter()
         caught = None
@@ -110,6 +119,8 @@ def run_scenario(scenario, aws, calls: list) -> ScenarioResult:
                 detail=(detail or "")[:400],
                 http_status=status,
                 error_code=error_code,
+                aws_would=step.aws_would or "",
+                observed=_choose_observed(outcome, state.observed, caught, step_calls),
             )
         )
     return ScenarioResult(
@@ -119,6 +130,35 @@ def run_scenario(scenario, aws, calls: list) -> ScenarioResult:
         services=list(scenario.services),
         steps=results,
     )
+
+
+def _choose_observed(outcome: str, explicit, caught, step_calls: list):
+    """Key fields for the gallery. Passes are dropped so secrets from a successful call are not stored."""
+
+    if outcome not in {"divergent", "not_implemented"}:
+        return None
+    if explicit is not None:
+        copied = public_copy(explicit)
+        return copied if copied not in ({}, []) else None
+    if isinstance(caught, ClientError):
+        return public_copy(_error_body(caught))
+    if step_calls:
+        parsed = step_calls[-1].get("parsed")
+        if parsed:
+            return parsed
+    return None
+
+
+def _error_body(exc: ClientError) -> dict:
+    response = exc.response or {}
+    err = response.get("Error") or {}
+    status = (response.get("ResponseMetadata") or {}).get("HTTPStatusCode")
+    body: dict = {}
+    if err:
+        body["Error"] = {"Code": err.get("Code"), "Message": err.get("Message")}
+    if status is not None:
+        body["httpStatus"] = status
+    return body
 
 
 def emulator_meta(aws) -> dict:

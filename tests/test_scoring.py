@@ -103,6 +103,11 @@ def test_scoreboard_wall_and_history_point():
     point = history_point(board)
     assert point["emulator_version"] == "1.0.364"
     assert point["not_implemented"] == 1
+    assert point["step_outcomes"][2]["outcome"] == "divergent"
+    assert point["step_outcomes"][2]["operation"] == "StartBuild"
+    assert board["schema"] == 1
+    assert board["summary"]["fidelity_pct"] == 33
+    assert board["emulator"]["version"] == "1.0.364"
 
 
 def _demo_board(**overrides):
@@ -162,6 +167,41 @@ def test_meaningful_change_detects_emulator_outcome_and_counts():
         ]
     )
     assert is_meaningful_change(base, extra) is True
+
+
+def test_meaningful_change_ignores_gallery_fields():
+    base = _demo_board()
+    steps = [
+        _Step("ok", "s3", "CreateBucket", "pass"),
+        _Step("missing", "ce", "GetCostAndUsage", "not_implemented", detail="scaffolded", http_status=501),
+    ]
+    steps[1].aws_would = "On AWS this lists cost."
+    steps[1].observed = {"Error": {"Code": "NotImplemented", "Message": "scaffolded"}, "SecretAccessKey": "hidden"}
+    richer = build_scoreboard(
+        meta={
+            "generated_at": "2026-11-14T02:00:00Z",
+            "emulator": {"version": "1.0.364", "commit": "abc", "startup_ms": 80, "rss_mb": 9},
+        },
+        scenarios=[_Scenario("demo", steps)],
+        calls=[
+            {
+                "service": "ce",
+                "operation": "GetCostAndUsage",
+                "http_status": 501,
+                "error_code": "NotImplemented",
+                "latency_ms": 4.0,
+                "parsed": {"SecretAccessKey": "should-not-land-in-calls"},
+            }
+        ],
+    )
+    assert is_meaningful_change(base, richer) is False
+    assert richer["summary"]["fidelity_pct"] == base["summary"]["fidelity_pct"]
+    assert richer["emulator"]["version"] == "1.0.364"
+    step = richer["scenarios"][0]["steps"][1]
+    assert step["aws_would"] == "On AWS this lists cost."
+    assert step["observed"]["Error"]["Code"] == "NotImplemented"
+    assert "parsed" not in richer["calls"][0]
+    assert "should-not-land-in-calls" not in str(richer["calls"])
 
 
 def test_scenarios_are_registered_and_handlers_parse():

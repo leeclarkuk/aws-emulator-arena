@@ -88,7 +88,17 @@ def wait_build(aws, state):
         raise AssertionError(f"build status is {build.get('buildStatus')}")
 
 
-@scenario.step("The build recorded the buildspec output", service="codebuild", operation="BatchGetBuilds")
+@scenario.step(
+    "The build recorded the buildspec output",
+    service="codebuild",
+    operation="BatchGetBuilds",
+    aws_would=(
+        "On AWS, a build that reports SUCCEEDED has run the buildspec. "
+        "The BUILD phase takes more than zero seconds, and the logs include "
+        "the output of its commands. This step looks for the marker the "
+        "buildspec echoes, which is how you can tell the build actually ran."
+    ),
+)
 def build_logs(aws, state):
     state.need("build", "marker")
     build = state["build"]
@@ -96,6 +106,20 @@ def build_logs(aws, state):
     phases = build.get("phases") or []
     build_phase = next((phase for phase in phases if phase.get("phaseType") == "BUILD"), {})
     duration = build_phase.get("durationInSeconds")
+    state.observe(
+        {
+            "buildStatus": build.get("buildStatus"),
+            "logs": logs,
+            "phases": [
+                {
+                    "phaseType": phase.get("phaseType"),
+                    "phaseStatus": phase.get("phaseStatus"),
+                    "durationInSeconds": phase.get("durationInSeconds"),
+                }
+                for phase in phases
+            ],
+        }
+    )
     searchable = json.dumps({"logs": logs, "durationInSeconds": duration}, default=str)
     if state["marker"] in searchable:
         return

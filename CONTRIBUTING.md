@@ -47,6 +47,8 @@ def round_trip(aws, state):
 
 Raise `AssertionError` when the call succeeded and the result is not what AWS would have produced. That is recorded as divergent.
 
+`aws_would` on the step decorator is one sentence about what AWS would do. The gallery prints it. When the interesting part of the response is not the error the SDK raises, call `state.observe({...})` with the key fields before you assert. The runner keeps that only for a divergent step or a 501, redacts secret-looking fields, and trims long values. Do not put keys in it. A pass does not store the body.
+
 ## What the outcomes mean
 
 | Outcome | When |

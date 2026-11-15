@@ -54,6 +54,9 @@ make arena ARGS="--only static-site"
 scenario file  ->  boto3, loopback only  ->  scoreboard/latest.json
                                               scoreboard/history.json
                                               site/index.html
+                                              site/gallery.html
+                                              site/feed.xml
+                                              site/rss.xml
 ```
 
 Fidelity is the share of steps that passed:
@@ -131,7 +134,7 @@ make test
 make arena ARGS="--only hello-bucket"
 ```
 
-`state.rid()` keeps names unique. Raise `AssertionError` when the bytes are wrong. Use `expect=error("AccessDenied")` from `arena.scenario` when AWS should say no. Do not catch a 501 and mark it successful. The longer version, including how the four outcomes are decided, is in [CONTRIBUTING.md](CONTRIBUTING.md).
+`state.rid()` keeps names unique. Raise `AssertionError` when the bytes are wrong. Use `expect=error("AccessDenied")` from `arena.scenario` when AWS should say no. Do not catch a 501 and mark it successful. Add `aws_would` on a step when you can say, in one sentence, what AWS would do. The gallery prints that next to the response. The longer version, including how the four outcomes are decided, is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Open a [scenario proposal](https://github.com/leeclarkuk/aws-emulator-arena/issues/new?template=new-scenario.yml) if you would rather discuss the workflow before writing it, or an [emulator gap](https://github.com/leeclarkuk/aws-emulator-arena/issues/new?template=emulator-gap.yml) when a step comes back 501 or divergent.
 
@@ -140,6 +143,12 @@ Open a [scenario proposal](https://github.com/leeclarkuk/aws-emulator-arena/issu
 [`.github/workflows/arena.yml`](.github/workflows/arena.yml) installs the latest signed package, runs the arena on every pull request, and on a push to `main`. A schedule (`7 * * * *` UTC) does the same so a new emulator release shows up as the next point on the chart. On `main` the workflow commits `scoreboard/latest.json` and `scoreboard/history.json` only when the emulator version or commit, a step outcome, or the summary counts changed; timing-only noise is skipped. Every scheduled run still deploys `site/` with `actions/deploy-pages` so the board's ran timestamp stays fresh.
 
 The scoreboard is a static page. It has no backend. The data is inlined, so it works at a project-pages URL.
+
+## Gallery and changes feed
+
+The [divergence gallery](https://leeclarkuk.github.io/aws-emulator-arena/gallery.html) is a page on the board. It has one card for each divergent step, then one card for each 501. A card names the workflow, the step, the service and operation, what AWS would do, and the key fields the emulator returned. The link on the card stays the same between runs.
+
+The [Atom feed](https://leeclarkuk.github.io/aws-emulator-arena/feed.xml) and the [RSS feed](https://leeclarkuk.github.io/aws-emulator-arena/rss.xml) each carry an entry when a step changes outcome between recorded runs, and when an emulator version shows up for the first time. A timing-only hour still publishes the board. It does not add a history point, so it does not add a feed entry either. The page head advertises both feeds.
 
 One manual step before the live URL exists: in the repository settings, open Pages and set the source to GitHub Actions. The first deploy also needs the default `GITHUB_TOKEN` to be allowed to write to `main` (Settings, Actions, General, Workflow permissions, Read and write). Branch protection that blocks the `github-actions` bot will keep the chart from gaining points; the Pages deploy in that same job will not run either.
 
@@ -151,6 +160,7 @@ arena/runner.py      runs them and writes the scoreboard
 scoreboard/          latest.json and history.json, committed
 web/                 the page the runner fills in
 site/                generated, gitignored, deployed to Pages
+                     (index, gallery, Atom feed, RSS feed)
 scripts/run.sh       emulator lifecycle and the only supported entrypoint
 ```
 

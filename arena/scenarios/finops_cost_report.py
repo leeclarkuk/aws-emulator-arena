@@ -67,17 +67,32 @@ def read_export(aws, state):
         raise AssertionError(f"export total is {total}")
 
 
-@scenario.step("Ask Cost Explorer for the month", service="ce", operation="GetCostAndUsage")
+@scenario.step(
+    "Ask Cost Explorer for the month",
+    service="ce",
+    operation="GetCostAndUsage",
+    aws_would="On AWS, GetCostAndUsage returns the cost for the period you ask for, grouped the way you asked.",
+)
 def get_cost_and_usage(aws, state):
     aws.client("ce").get_cost_and_usage(TimePeriod=_PERIOD, Granularity="MONTHLY", Metrics=["UnblendedCost"])
 
 
-@scenario.step("List services that had spend", service="ce", operation="GetDimensionValues")
+@scenario.step(
+    "List services that had spend",
+    service="ce",
+    operation="GetDimensionValues",
+    aws_would="On AWS, GetDimensionValues lists the values of a dimension, such as the service names that had spend.",
+)
 def get_dimension_values(aws, state):
     aws.client("ce").get_dimension_values(TimePeriod=_PERIOD, Dimension="SERVICE")
 
 
-@scenario.step("Forecast the rest of the month", service="ce", operation="GetCostForecast")
+@scenario.step(
+    "Forecast the rest of the month",
+    service="ce",
+    operation="GetCostForecast",
+    aws_would="On AWS, GetCostForecast returns a forecast of cost for the rest of the period.",
+)
 def get_cost_forecast(aws, state):
     aws.client("ce").get_cost_forecast(
         TimePeriod={"Start": "2026-11-14", "End": "2026-12-01"},
@@ -86,6 +101,11 @@ def get_cost_forecast(aws, state):
     )
 
 
-@scenario.step("List cost allocation tags", service="ce", operation="GetTags")
+@scenario.step(
+    "List cost allocation tags",
+    service="ce",
+    operation="GetTags",
+    aws_would="On AWS, GetTags lists the cost allocation tag keys that match the filter.",
+)
 def get_tags(aws, state):
     aws.client("ce").get_tags(TimePeriod=_PERIOD)

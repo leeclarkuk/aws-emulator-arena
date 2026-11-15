@@ -132,13 +132,23 @@ def bucket_policy(aws, state):
     s3.get_object(Bucket=bucket, Key="note.txt")
 
 
-@scenario.step("The built-in principal agrees with policy simulation", service="iam", operation="SimulatePrincipalPolicy")
+@scenario.step(
+    "The built-in principal agrees with policy simulation",
+    service="iam",
+    operation="SimulatePrincipalPolicy",
+    aws_would=(
+        "On AWS, SimulatePrincipalPolicy and the real call agree. If the "
+        "built-in principal is allowed to list buckets, the simulation says "
+        "allowed. If it is denied, both the simulation and ListBuckets say so."
+    ),
+)
 def simulation_matches(aws, state):
     iam = aws.client("iam")
     caller = aws.identity["arn"]
     simulated = iam.simulate_principal_policy(PolicySourceArn=caller, ActionNames=["s3:ListAllMyBuckets"])
     results = simulated.get("EvaluationResults") or []
     if not results:
+        state.observe({"EvaluationResults": []})
         raise AssertionError("SimulatePrincipalPolicy returned no evaluation")
     decision = results[0].get("EvalDecision")
     try:
@@ -153,6 +163,13 @@ def simulation_matches(aws, state):
             actual = "denied"
         else:
             raise
+    state.observe(
+        {
+            "EvalActionName": "s3:ListAllMyBuckets",
+            "EvalDecision": decision,
+            "ListBuckets": actual,
+        }
+    )
     denied = {"implicitDeny", "explicitDeny"}
     allowed = {"allowed", "explicitAllow"}
     if decision in denied and actual == "allowed":

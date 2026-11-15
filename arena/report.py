@@ -6,6 +6,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from arena.gallery import unique_anchor
 from arena.scoring import counts, fidelity, latency_stats, round_ms
 
 SERVICE_NAMES = {
@@ -31,8 +32,8 @@ def service_name(service: str) -> str:
     return SERVICE_NAMES.get(service, service)
 
 
-def _step_dict(step) -> dict:
-    return {
+def _step_dict(step, anchor: str) -> dict:
+    row = {
         "title": step.title,
         "service": step.service,
         "service_name": service_name(step.service),
@@ -42,7 +43,15 @@ def _step_dict(step) -> dict:
         "detail": step.detail,
         "http_status": step.http_status,
         "error_code": step.error_code,
+        "anchor": anchor,
     }
+    aws_would = getattr(step, "aws_would", "") or ""
+    if aws_would:
+        row["aws_would"] = aws_would
+    observed = getattr(step, "observed", None)
+    if observed is not None:
+        row["observed"] = observed
+    return row
 
 
 def _stats(samples) -> dict:
@@ -75,6 +84,12 @@ def build_scoreboard(*, meta: dict, scenarios: list, calls: list[dict]) -> dict:
         )
     services.sort(key=lambda row: (row["fidelity"] is None, row["fidelity"] if row["fidelity"] is not None else 1, row["name"]))
 
+    used_anchors: set[str] = set()
+    anchors = {
+        id(step): unique_anchor(scenario.slug, step.title, used_anchors)
+        for scenario in scenarios
+        for step in scenario.steps
+    }
     wall = [
         {
             "scenario": scenario.slug,
@@ -84,6 +99,7 @@ def build_scoreboard(*, meta: dict, scenarios: list, calls: list[dict]) -> dict:
             "operation": step.operation,
             "title": step.title,
             "detail": step.detail,
+            "anchor": anchors[id(step)],
         }
         for scenario in scenarios
         for step in scenario.steps
@@ -100,6 +116,7 @@ def build_scoreboard(*, meta: dict, scenarios: list, calls: list[dict]) -> dict:
             "detail": step.detail,
             "http_status": step.http_status,
             "error_code": step.error_code,
+            "anchor": anchors[id(step)],
         }
         for scenario in scenarios
         for step in scenario.steps
@@ -121,7 +138,7 @@ def build_scoreboard(*, meta: dict, scenarios: list, calls: list[dict]) -> dict:
                 "fidelity": scenario_score,
                 "fidelity_pct": _pct(scenario_score),
                 **scenario_tally,
-                "steps": [_step_dict(step) for step in scenario.steps],
+                "steps": [_step_dict(step, anchors[id(step)]) for step in scenario.steps],
             }
         )
 
@@ -172,6 +189,18 @@ def history_point(scoreboard: dict) -> dict:
         "startup_ms": emulator.get("startup_ms"),
         "rss_mb": emulator.get("rss_mb"),
         "services": {row["service"]: row["fidelity_pct"] for row in scoreboard["services"]},
+        "step_outcomes": [
+            {
+                "scenario": scenario["slug"],
+                "scenario_title": scenario["title"],
+                "title": step["title"],
+                "service": step["service"],
+                "operation": step["operation"],
+                "outcome": step["outcome"],
+            }
+            for scenario in scoreboard["scenarios"]
+            for step in scenario["steps"]
+        ],
     }
 
 

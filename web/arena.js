@@ -19,20 +19,28 @@ app.append(el("div", { class: "wrap" }, [
 ]));
 
 function header() {
-  return el("header", { class: "top" }, [
-    el("div", { class: "brand" }, [
-      el("div", { class: "mark" }),
-      el("div", {}, [
-        el("h1", {}, ["AWS Emulator Arena"]),
-        el("p", {}, ["Local fidelity board"]),
+  return el("div", {}, [
+    el("header", { class: "top" }, [
+      el("div", { class: "brand" }, [
+        el("div", { class: "mark" }),
+        el("div", {}, [
+          el("h1", {}, ["AWS Emulator Arena"]),
+          el("p", {}, ["Local fidelity board"]),
+        ]),
+      ]),
+      el("div", { class: "pills" }, [
+        pill("emulator", emulator.version || "unknown"),
+        pill("account", emulator.account || "-"),
+        pill("startup", ms(emulator.startup_ms)),
+        pill("rss", emulator.rss_mb == null ? "-" : `${emulator.rss_mb} MB`),
+        pill("ran", when(report.generated_at)),
       ]),
     ]),
-    el("div", { class: "pills" }, [
-      pill("emulator", emulator.version || "unknown"),
-      pill("account", emulator.account || "-"),
-      pill("startup", ms(emulator.startup_ms)),
-      pill("rss", emulator.rss_mb == null ? "-" : `${emulator.rss_mb} MB`),
-      pill("ran", when(report.generated_at)),
+    el("nav", { class: "board-nav" }, [
+      el("a", { href: "index.html", "aria-current": "page" }, ["Scoreboard"]),
+      el("a", { href: "gallery.html" }, ["Divergence gallery"]),
+      el("a", { href: "feed.xml" }, ["Atom feed"]),
+      el("a", { href: "rss.xml" }, ["RSS"]),
     ]),
   ]);
 }
@@ -138,7 +146,7 @@ function wall() {
     cards.length
       ? el("div", { class: "wall" }, cards.map((gap) => el("article", { class: "ticket" }, [
           el("p", { class: "code" }, ["501"]),
-          el("p", { class: "opname" }, [`${gap.service_name} ${gap.operation}`]),
+          el("p", { class: "opname" }, [galleryLink(gap, `${gap.service_name} ${gap.operation}`)]),
           el("p", { class: "where" }, [gap.scenario_title]),
           el("p", { class: "msg" }, [gap.detail || gap.title]),
         ])))
@@ -150,15 +158,23 @@ function divergences() {
   const rows = report.divergences;
   return el("section", {}, [
     head("Divergences", "The call returned, and it was not what the workflow needed."),
+    el("p", { class: "section-link" }, [
+      el("a", { href: "gallery.html" }, ["Open the divergence gallery"]),
+    ]),
     rows.length
       ? el("div", { class: "divs" }, rows.map((row) => el("article", { class: "note" }, [
           el("span", { class: "badge" }, ["divergent"]),
-          el("h3", {}, [row.title]),
+          el("h3", {}, [galleryLink(row, row.title)]),
           el("p", { class: "where" }, [`${row.scenario_title}: ${row.service_name} ${row.operation}`]),
           el("p", { class: "msg" }, [row.detail || "Behaviour did not match the scenario."]),
         ])))
       : el("p", { class: "empty" }, ["No divergent calls in this run."]),
   ]);
+}
+
+function galleryLink(row, label) {
+  if (!row.anchor) return label;
+  return el("a", { href: `gallery.html#${row.anchor}` }, [label]);
 }
 
 function trend() {
@@ -227,6 +243,8 @@ function footer() {
   return el("footer", { class: "colophon" }, [
     el("div", {}, ["No AWS account. No real credentials. The emulator on 127.0.0.1 is the only thing under test."]),
     el("nav", {}, [
+      el("a", { href: "gallery.html" }, ["Divergence gallery"]),
+      el("a", { href: "feed.xml" }, ["Atom feed"]),
       el("a", { href: "https://docs.aws.amazon.com/emulator/" }, ["Emulator docs"]),
       el("a", { href: "https://github.com/aws/aws-emulator" }, ["Emulator source"]),
       el("a", { href: "https://github.com/leeclarkuk/aws-emulator-arena" }, ["Arena source"]),

@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from arena.feed import render_atom, render_rss
+from arena.gallery import gallery_cards, render_gallery_page
 from arena.preview import write_og_image
 from arena.report import dump_json
 
@@ -39,6 +41,17 @@ def render_site(scoreboard: dict, history: dict, destination: Path) -> Path:
     # social image have to live beside index.html.
     dump_json(destination / "latest.json", scoreboard)
     write_og_image(scoreboard, destination / "og.png")
+    cards = gallery_cards(scoreboard, history)
+    anchors = {card["anchor"] for card in cards}
+    (destination / "gallery.html").write_text(render_gallery_page(scoreboard, history), encoding="utf-8")
+    (destination / "feed.xml").write_text(
+        render_atom(history, anchors=anchors, updated=scoreboard.get("generated_at")),
+        encoding="utf-8",
+    )
+    (destination / "rss.xml").write_text(
+        render_rss(history, anchors=anchors, updated=scoreboard.get("generated_at")),
+        encoding="utf-8",
+    )
     return page
 
 
