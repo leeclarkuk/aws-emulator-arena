@@ -2739,6 +2739,646 @@
           "outcome": "pass"
         }
       ]
+    },
+    {
+      "generated_at": "2026-11-17T05:08:19Z",
+      "emulator_version": "1.0.485",
+      "emulator_commit": "a2568e8a8db45f44e1a9fea808f13b22373aab60",
+      "fidelity": 0.868421052631579,
+      "fidelity_pct": 87,
+      "steps": 76,
+      "pass": 66,
+      "not_implemented": 7,
+      "divergent": 3,
+      "blocked": 0,
+      "p50_ms": 2.65,
+      "startup_ms": 156.0,
+      "rss_mb": 307.0,
+      "services": {
+        "ce": 0,
+        "sso-admin": 50,
+        "organizations": 57,
+        "codebuild": 75,
+        "iam": 92,
+        "budgets": 100,
+        "cloudformation": 100,
+        "codepipeline": 100,
+        "dynamodb": 100,
+        "identitystore": 100,
+        "lambda": 100,
+        "s3": 100,
+        "sqs": 100
+      },
+      "step_outcomes": [
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Create the site bucket",
+          "service": "s3",
+          "operation": "CreateBucket",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Upload index.html",
+          "service": "s3",
+          "operation": "PutObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Enable website hosting",
+          "service": "s3",
+          "operation": "PutBucketWebsite",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Read the index page back",
+          "service": "s3",
+          "operation": "GetObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "List the site and find index.html",
+          "service": "s3",
+          "operation": "ListObjectsV2",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Read the website configuration",
+          "service": "s3",
+          "operation": "GetBucketWebsite",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Delete the index page",
+          "service": "s3",
+          "operation": "DeleteObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "Delete the bucket",
+          "service": "s3",
+          "operation": "DeleteBucket",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "static-site",
+          "scenario_title": "Static site on S3",
+          "title": "The deleted bucket is gone",
+          "service": "s3",
+          "operation": "HeadBucket",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Create the todos table",
+          "service": "dynamodb",
+          "operation": "CreateTable",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Wait until the table is active",
+          "service": "dynamodb",
+          "operation": "DescribeTable",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Create a role the function can assume",
+          "service": "iam",
+          "operation": "CreateRole",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Allow the role to write todos",
+          "service": "iam",
+          "operation": "PutRolePolicy",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Create the Python 3.12 function",
+          "service": "lambda",
+          "operation": "CreateFunction",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Wait until the function is active",
+          "service": "lambda",
+          "operation": "GetFunction",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Invoke the function with a todo",
+          "service": "lambda",
+          "operation": "Invoke",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "serverless-todo",
+          "scenario_title": "Serverless todo API",
+          "title": "Read the todo back from DynamoDB",
+          "service": "dynamodb",
+          "operation": "GetItem",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Create the orders table",
+          "service": "dynamodb",
+          "operation": "CreateTable",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Wait until the orders table is active",
+          "service": "dynamodb",
+          "operation": "DescribeTable",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Create the orders queue",
+          "service": "sqs",
+          "operation": "CreateQueue",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Create a role for the worker",
+          "service": "iam",
+          "operation": "CreateRole",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Allow the worker to read the queue and write orders",
+          "service": "iam",
+          "operation": "PutRolePolicy",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Create the worker function",
+          "service": "lambda",
+          "operation": "CreateFunction",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Wait until the worker is active",
+          "service": "lambda",
+          "operation": "GetFunction",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Attach the queue to the worker",
+          "service": "lambda",
+          "operation": "CreateEventSourceMapping",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Wait until the mapping is enabled",
+          "service": "lambda",
+          "operation": "GetEventSourceMapping",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "Publish an order",
+          "service": "sqs",
+          "operation": "SendMessage",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "event-pipeline",
+          "scenario_title": "Event pipeline",
+          "title": "The worker stored the order",
+          "service": "dynamodb",
+          "operation": "GetItem",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "Create a stack with a bucket and a queue",
+          "service": "cloudformation",
+          "operation": "CreateStack",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "Wait until the stack is complete",
+          "service": "cloudformation",
+          "operation": "DescribeStacks",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "Both resources were created",
+          "service": "cloudformation",
+          "operation": "ListStackResources",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "The bucket from the template answers",
+          "service": "s3",
+          "operation": "HeadBucket",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "The queue from the template answers",
+          "service": "sqs",
+          "operation": "GetQueueUrl",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "Delete the stack",
+          "service": "cloudformation",
+          "operation": "DeleteStack",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "The stack is gone",
+          "service": "cloudformation",
+          "operation": "DescribeStacks",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cloudformation-stack",
+          "scenario_title": "CloudFormation stack",
+          "title": "The bucket was deleted with the stack",
+          "service": "s3",
+          "operation": "HeadBucket",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "List IAM users",
+          "service": "iam",
+          "operation": "ListUsers",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Create an auditor user",
+          "service": "iam",
+          "operation": "CreateUser",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "The auditor shows up in the directory",
+          "service": "iam",
+          "operation": "ListUsers",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "List Identity Center instances",
+          "service": "sso-admin",
+          "operation": "ListInstances",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Create a person in the identity store",
+          "service": "identitystore",
+          "operation": "CreateUser",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "The person is in the identity store",
+          "service": "identitystore",
+          "operation": "ListUsers",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Describe the organization",
+          "service": "organizations",
+          "operation": "DescribeOrganization",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "List roots",
+          "service": "organizations",
+          "operation": "ListRoots",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Create a Workloads OU",
+          "service": "organizations",
+          "operation": "CreateOrganizationalUnit",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "The Workloads OU is under the root",
+          "service": "organizations",
+          "operation": "ListOrganizationalUnitsForParent",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "List accounts in the organization",
+          "service": "organizations",
+          "operation": "ListAccounts",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Describe the management account",
+          "service": "organizations",
+          "operation": "DescribeAccount",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "List children of the root",
+          "service": "organizations",
+          "operation": "ListChildren",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "platform-inventory",
+          "scenario_title": "Platform inventory",
+          "title": "Create a permission set",
+          "service": "sso-admin",
+          "operation": "CreatePermissionSet",
+          "outcome": "divergent"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "Create a monthly cost budget",
+          "service": "budgets",
+          "operation": "CreateBudget",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "The budget is listed",
+          "service": "budgets",
+          "operation": "DescribeBudgets",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "Land a cost export in S3",
+          "service": "s3",
+          "operation": "PutObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "Sum the cost export",
+          "service": "s3",
+          "operation": "GetObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "Ask Cost Explorer for the month",
+          "service": "ce",
+          "operation": "GetCostAndUsage",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "List services that had spend",
+          "service": "ce",
+          "operation": "GetDimensionValues",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "Forecast the rest of the month",
+          "service": "ce",
+          "operation": "GetCostForecast",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "finops-cost-report",
+          "scenario_title": "FinOps cost report",
+          "title": "List cost allocation tags",
+          "service": "ce",
+          "operation": "GetTags",
+          "outcome": "not_implemented"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Create a CodeBuild service role",
+          "service": "iam",
+          "operation": "CreateRole",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Create a build project",
+          "service": "codebuild",
+          "operation": "CreateProject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Start a build",
+          "service": "codebuild",
+          "operation": "StartBuild",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Wait for the build to finish",
+          "service": "codebuild",
+          "operation": "BatchGetBuilds",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "The build recorded the buildspec output",
+          "service": "codebuild",
+          "operation": "BatchGetBuilds",
+          "outcome": "divergent"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Put the source object the pipeline will read",
+          "service": "s3",
+          "operation": "PutObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Create a two-stage pipeline",
+          "service": "codepipeline",
+          "operation": "CreatePipeline",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "Start the pipeline",
+          "service": "codepipeline",
+          "operation": "StartPipelineExecution",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "cicd-control-plane",
+          "scenario_title": "CI control plane",
+          "title": "The source action read the object",
+          "service": "codepipeline",
+          "operation": "GetPipelineExecution",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "Create a user with no policies",
+          "service": "iam",
+          "operation": "CreateUser",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "Create an access key for that user",
+          "service": "iam",
+          "operation": "CreateAccessKey",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "A user with no policy cannot list buckets",
+          "service": "s3",
+          "operation": "ListBuckets",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "Attach an explicit deny",
+          "service": "iam",
+          "operation": "PutUserPolicy",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "The explicit deny blocks the user",
+          "service": "s3",
+          "operation": "ListBuckets",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "An allow policy lets a second user list buckets",
+          "service": "iam",
+          "operation": "PutUserPolicy",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "A bucket policy deny is enforced",
+          "service": "s3",
+          "operation": "GetObject",
+          "outcome": "pass"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "The built-in principal agrees with policy simulation",
+          "service": "iam",
+          "operation": "SimulatePrincipalPolicy",
+          "outcome": "divergent"
+        },
+        {
+          "scenario": "iam-guardrails",
+          "scenario_title": "IAM guardrails",
+          "title": "An explicit deny applies to the built-in emulator key",
+          "service": "s3",
+          "operation": "ListBuckets",
+          "outcome": "pass"
+        }
+      ]
     }
   ]
 }
