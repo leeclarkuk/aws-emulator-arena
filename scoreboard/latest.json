@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-17T06:07:58Z",
+  "generated_at": "2026-11-17T08:08:12Z",
   "emulator": {
-    "version": "1.0.486",
+    "version": "1.0.487",
     "release_date": "2026.11.17",
-    "commit": "7ac311ed859a4cefb58d9ab5fcfdc3e8f014db4c",
+    "commit": "caa0091e23c863de2041b377ba3f0609296e1cfc",
     "endpoint": "https://127.0.0.1:9297",
     "account": "000000000000",
     "caller_arn": "arn:aws:iam::000000000000:user/emulator",
-    "startup_ms": 264.0,
-    "rss_mb": 307.1,
+    "startup_ms": 164.0,
+    "rss_mb": 305.5,
     "arena_version": "0.1.0"
   },
   "summary": {
@@ -23,11 +23,11 @@
     "fidelity_pct": 87,
     "latency_ms": {
       "n": 113,
-      "min": 1.05,
-      "mean": 58.07,
-      "p50": 3.09,
-      "p95": 7.57,
-      "max": 2998.65
+      "min": 1.06,
+      "mean": 57.12,
+      "p50": 2.69,
+      "p95": 5.62,
+      "max": 2999.66
     }
   },
   "scenarios": [
@@ -54,7 +54,7 @@
           "service_name": "S3",
           "operation": "CreateBucket",
           "outcome": "pass",
-          "latency_ms": 33.57,
+          "latency_ms": 30.74,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -66,7 +66,7 @@
           "service_name": "S3",
           "operation": "PutObject",
           "outcome": "pass",
-          "latency_ms": 8.15,
+          "latency_ms": 6.87,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -78,7 +78,7 @@
           "service_name": "S3",
           "operation": "PutBucketWebsite",
           "outcome": "pass",
-          "latency_ms": 7.1,
+          "latency_ms": 5.99,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -90,7 +90,7 @@
           "service_name": "S3",
           "operation": "GetObject",
           "outcome": "pass",
-          "latency_ms": 8.02,
+          "latency_ms": 6.91,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -102,7 +102,7 @@
           "service_name": "S3",
           "operation": "ListObjectsV2",
           "outcome": "pass",
-          "latency_ms": 7.25,
+          "latency_ms": 6.19,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -114,7 +114,7 @@
           "service_name": "S3",
           "operation": "GetBucketWebsite",
           "outcome": "pass",
-          "latency_ms": 6.86,
+          "latency_ms": 5.76,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -126,7 +126,7 @@
           "service_name": "S3",
           "operation": "DeleteObject",
           "outcome": "pass",
-          "latency_ms": 6.84,
+          "latency_ms": 5.83,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -138,7 +138,7 @@
           "service_name": "S3",
           "operation": "DeleteBucket",
           "outcome": "pass",
-          "latency_ms": 7.44,
+          "latency_ms": 6.03,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -150,7 +150,7 @@
           "service_name": "S3",
           "operation": "HeadBucket",
           "outcome": "pass",
-          "latency_ms": 8.09,
+          "latency_ms": 6.67,
           "detail": "Not Found",
           "http_status": 404,
           "error_code": "404",
@@ -185,7 +185,7 @@
           "service_name": "DynamoDB",
           "operation": "CreateTable",
           "outcome": "pass",
-          "latency_ms": 14.13,
+          "latency_ms": 12.14,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -197,7 +197,7 @@
           "service_name": "DynamoDB",
           "operation": "DescribeTable",
           "outcome": "pass",
-          "latency_ms": 3001.55,
+          "latency_ms": 3002.23,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -209,7 +209,7 @@
           "service_name": "IAM",
           "operation": "CreateRole",
           "outcome": "pass",
-          "latency_ms": 36.59,
+          "latency_ms": 36.18,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -221,7 +221,7 @@
           "service_name": "IAM",
           "operation": "PutRolePolicy",
           "outcome": "pass",
-          "latency_ms": 5.69,
+          "latency_ms": 5.45,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -233,7 +233,7 @@
           "service_name": "Lambda",
           "operation": "CreateFunction",
           "outcome": "pass",
-          "latency_ms": 15.6,
+          "latency_ms": 14.57,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -245,7 +245,7 @@
           "service_name": "Lambda",
           "operation": "GetFunction",
           "outcome": "pass",
-          "latency_ms": 510.87,
+          "latency_ms": 511.32,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -257,7 +257,7 @@
           "service_name": "Lambda",
           "operation": "Invoke",
           "outcome": "pass",
-          "latency_ms": 206.0,
+          "latency_ms": 142.78,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -269,7 +269,7 @@
           "service_name": "DynamoDB",
           "operation": "GetItem",
           "outcome": "pass",
-          "latency_ms": 6.41,
+          "latency_ms": 6.25,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -306,7 +306,7 @@
           "service_name": "DynamoDB",
           "operation": "CreateTable",
           "outcome": "pass",
-          "latency_ms": 5.71,
+          "latency_ms": 5.66,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -318,7 +318,7 @@
           "service_name": "DynamoDB",
           "operation": "DescribeTable",
           "outcome": "pass",
-          "latency_ms": 3001.86,
+          "latency_ms": 3002.22,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -330,7 +330,7 @@
           "service_name": "SQS",
           "operation": "CreateQueue",
           "outcome": "pass",
-          "latency_ms": 9.41,
+          "latency_ms": 9.71,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -342,7 +342,7 @@
           "service_name": "IAM",
           "operation": "CreateRole",
           "outcome": "pass",
-          "latency_ms": 6.0,
+          "latency_ms": 6.37,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -354,7 +354,7 @@
           "service_name": "IAM",
           "operation": "PutRolePolicy",
           "outcome": "pass",
-          "latency_ms": 5.3,
+          "latency_ms": 5.41,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -366,7 +366,7 @@
           "service_name": "Lambda",
           "operation": "CreateFunction",
           "outcome": "pass",
-          "latency_ms": 6.25,
+          "latency_ms": 7.72,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -378,7 +378,7 @@
           "service_name": "Lambda",
           "operation": "GetFunction",
           "outcome": "pass",
-          "latency_ms": 522.27,
+          "latency_ms": 512.04,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -390,7 +390,7 @@
           "service_name": "Lambda",
           "operation": "CreateEventSourceMapping",
           "outcome": "pass",
-          "latency_ms": 6.87,
+          "latency_ms": 6.8,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -402,7 +402,7 @@
           "service_name": "Lambda",
           "operation": "GetEventSourceMapping",
           "outcome": "pass",
-          "latency_ms": 509.88,
+          "latency_ms": 510.6,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -426,7 +426,7 @@
           "service_name": "DynamoDB",
           "operation": "GetItem",
           "outcome": "pass",
-          "latency_ms": 771.48,
+          "latency_ms": 772.29,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -461,7 +461,7 @@
           "service_name": "CloudFormation",
           "operation": "CreateStack",
           "outcome": "pass",
-          "latency_ms": 19.28,
+          "latency_ms": 17.96,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -473,7 +473,7 @@
           "service_name": "CloudFormation",
           "operation": "DescribeStacks",
           "outcome": "pass",
-          "latency_ms": 511.29,
+          "latency_ms": 511.48,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -485,7 +485,7 @@
           "service_name": "CloudFormation",
           "operation": "ListStackResources",
           "outcome": "pass",
-          "latency_ms": 5.96,
+          "latency_ms": 5.91,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -497,7 +497,7 @@
           "service_name": "S3",
           "operation": "HeadBucket",
           "outcome": "pass",
-          "latency_ms": 7.18,
+          "latency_ms": 6.44,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -509,7 +509,7 @@
           "service_name": "SQS",
           "operation": "GetQueueUrl",
           "outcome": "pass",
-          "latency_ms": 10.33,
+          "latency_ms": 4.33,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -521,7 +521,7 @@
           "service_name": "CloudFormation",
           "operation": "DeleteStack",
           "outcome": "pass",
-          "latency_ms": 12.03,
+          "latency_ms": 6.73,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -533,7 +533,7 @@
           "service_name": "CloudFormation",
           "operation": "DescribeStacks",
           "outcome": "pass",
-          "latency_ms": 513.92,
+          "latency_ms": 512.16,
           "detail": "",
           "http_status": 200,
           "error_code": "ValidationError",
@@ -545,7 +545,7 @@
           "service_name": "S3",
           "operation": "HeadBucket",
           "outcome": "pass",
-          "latency_ms": 11.26,
+          "latency_ms": 8.33,
           "detail": "",
           "http_status": 200,
           "error_code": "404",
@@ -582,7 +582,7 @@
           "service_name": "IAM",
           "operation": "ListUsers",
           "outcome": "pass",
-          "latency_ms": 7.03,
+          "latency_ms": 6.07,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -594,7 +594,7 @@
           "service_name": "IAM",
           "operation": "CreateUser",
           "outcome": "pass",
-          "latency_ms": 7.98,
+          "latency_ms": 6.75,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -606,7 +606,7 @@
           "service_name": "IAM",
           "operation": "ListUsers",
           "outcome": "pass",
-          "latency_ms": 6.21,
+          "latency_ms": 5.41,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -618,7 +618,7 @@
           "service_name": "IAM Identity Center",
           "operation": "ListInstances",
           "outcome": "pass",
-          "latency_ms": 9.58,
+          "latency_ms": 8.07,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -630,7 +630,7 @@
           "service_name": "Identity Store",
           "operation": "CreateUser",
           "outcome": "pass",
-          "latency_ms": 8.42,
+          "latency_ms": 7.39,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -642,7 +642,7 @@
           "service_name": "Identity Store",
           "operation": "ListUsers",
           "outcome": "pass",
-          "latency_ms": 5.31,
+          "latency_ms": 4.55,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -654,7 +654,7 @@
           "service_name": "Organizations",
           "operation": "DescribeOrganization",
           "outcome": "pass",
-          "latency_ms": 14.95,
+          "latency_ms": 8.93,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -666,7 +666,7 @@
           "service_name": "Organizations",
           "operation": "ListRoots",
           "outcome": "pass",
-          "latency_ms": 5.86,
+          "latency_ms": 4.37,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -678,7 +678,7 @@
           "service_name": "Organizations",
           "operation": "CreateOrganizationalUnit",
           "outcome": "pass",
-          "latency_ms": 5.73,
+          "latency_ms": 4.73,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -690,7 +690,7 @@
           "service_name": "Organizations",
           "operation": "ListOrganizationalUnitsForParent",
           "outcome": "pass",
-          "latency_ms": 5.29,
+          "latency_ms": 4.39,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -702,7 +702,7 @@
           "service_name": "Organizations",
           "operation": "ListAccounts",
           "outcome": "not_implemented",
-          "latency_ms": 5.84,
+          "latency_ms": 4.99,
           "detail": "operation ListAccounts is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -722,7 +722,7 @@
           "service_name": "Organizations",
           "operation": "DescribeAccount",
           "outcome": "not_implemented",
-          "latency_ms": 6.86,
+          "latency_ms": 5.67,
           "detail": "operation DescribeAccount is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -742,7 +742,7 @@
           "service_name": "Organizations",
           "operation": "ListChildren",
           "outcome": "not_implemented",
-          "latency_ms": 5.6,
+          "latency_ms": 4.83,
           "detail": "operation ListChildren is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -762,7 +762,7 @@
           "service_name": "IAM Identity Center",
           "operation": "CreatePermissionSet",
           "outcome": "divergent",
-          "latency_ms": 6.28,
+          "latency_ms": 5.39,
           "detail": "ValidationException: This operation is not supported for account instances of IAM Identity Center.",
           "http_status": 400,
           "error_code": "ValidationException",
@@ -805,7 +805,7 @@
           "service_name": "Budgets",
           "operation": "CreateBudget",
           "outcome": "pass",
-          "latency_ms": 8.3,
+          "latency_ms": 6.84,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -817,7 +817,7 @@
           "service_name": "Budgets",
           "operation": "DescribeBudgets",
           "outcome": "pass",
-          "latency_ms": 5.43,
+          "latency_ms": 4.59,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -829,7 +829,7 @@
           "service_name": "S3",
           "operation": "PutObject",
           "outcome": "pass",
-          "latency_ms": 12.49,
+          "latency_ms": 10.27,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -841,7 +841,7 @@
           "service_name": "S3",
           "operation": "GetObject",
           "outcome": "pass",
-          "latency_ms": 8.14,
+          "latency_ms": 6.86,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -853,7 +853,7 @@
           "service_name": "Cost Explorer",
           "operation": "GetCostAndUsage",
           "outcome": "not_implemented",
-          "latency_ms": 11.28,
+          "latency_ms": 9.74,
           "detail": "operation GetCostAndUsage is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -873,7 +873,7 @@
           "service_name": "Cost Explorer",
           "operation": "GetDimensionValues",
           "outcome": "not_implemented",
-          "latency_ms": 5.99,
+          "latency_ms": 5.15,
           "detail": "operation GetDimensionValues is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -893,7 +893,7 @@
           "service_name": "Cost Explorer",
           "operation": "GetCostForecast",
           "outcome": "not_implemented",
-          "latency_ms": 7.12,
+          "latency_ms": 5.93,
           "detail": "operation GetCostForecast is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -913,7 +913,7 @@
           "service_name": "Cost Explorer",
           "operation": "GetTags",
           "outcome": "not_implemented",
-          "latency_ms": 5.73,
+          "latency_ms": 4.9,
           "detail": "operation GetTags is scaffolded but not implemented in this emulator",
           "http_status": 501,
           "error_code": "NotImplemented",
@@ -958,7 +958,7 @@
           "service_name": "IAM",
           "operation": "CreateRole",
           "outcome": "pass",
-          "latency_ms": 6.68,
+          "latency_ms": 5.83,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -970,7 +970,7 @@
           "service_name": "CodeBuild",
           "operation": "CreateProject",
           "outcome": "pass",
-          "latency_ms": 11.42,
+          "latency_ms": 9.74,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -982,7 +982,7 @@
           "service_name": "CodeBuild",
           "operation": "StartBuild",
           "outcome": "pass",
-          "latency_ms": 7.62,
+          "latency_ms": 6.35,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -994,7 +994,7 @@
           "service_name": "CodeBuild",
           "operation": "BatchGetBuilds",
           "outcome": "pass",
-          "latency_ms": 804.76,
+          "latency_ms": 800.07,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1006,8 +1006,8 @@
           "service_name": "CodeBuild",
           "operation": "BatchGetBuilds",
           "outcome": "divergent",
-          "latency_ms": 0.05,
-          "detail": "build status is SUCCEEDED but nothing recorded arena-marker-f1fbfe4c; BUILD durationInSeconds=0, logs={'groupName': '/aws/codebuild/arena-build-f1fbfe4c', 'streamName': 'd1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29', 'deepLink': 'https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-f1fbfe4c;stream=d1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29', 'cloudWatchLogsAr",
+          "latency_ms": 0.06,
+          "detail": "build status is SUCCEEDED but nothing recorded arena-marker-2d921496; BUILD durationInSeconds=0, logs={'groupName': '/aws/codebuild/arena-build-2d921496', 'streamName': '83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0', 'deepLink': 'https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-2d921496;stream=83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0', 'cloudWatchLogsAr",
           "http_status": null,
           "error_code": null,
           "anchor": "cicd-control-plane--the-build-recorded-the-buildspec-output",
@@ -1015,10 +1015,10 @@
           "observed": {
             "buildStatus": "SUCCEEDED",
             "logs": {
-              "groupName": "/aws/codebuild/arena-build-f1fbfe4c",
-              "streamName": "d1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29",
-              "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-f1fbfe4c;stream=d1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29",
-              "cloudWatchLogsArn": "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/arena-build-f1fbfe4c:log-stream:d1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29",
+              "groupName": "/aws/codebuild/arena-build-2d921496",
+              "streamName": "83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0",
+              "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-2d921496;stream=83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0",
+              "cloudWatchLogsArn": "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/arena-build-2d921496:log-stream:83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0",
               "cloudWatchLogs": {
                 "status": "ENABLED"
               },
@@ -1077,7 +1077,7 @@
           "service_name": "S3",
           "operation": "PutObject",
           "outcome": "pass",
-          "latency_ms": 10.39,
+          "latency_ms": 10.89,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1089,7 +1089,7 @@
           "service_name": "CodePipeline",
           "operation": "CreatePipeline",
           "outcome": "pass",
-          "latency_ms": 12.49,
+          "latency_ms": 12.32,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1101,7 +1101,7 @@
           "service_name": "CodePipeline",
           "operation": "StartPipelineExecution",
           "outcome": "pass",
-          "latency_ms": 6.05,
+          "latency_ms": 5.65,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1113,7 +1113,7 @@
           "service_name": "CodePipeline",
           "operation": "GetPipelineExecution",
           "outcome": "pass",
-          "latency_ms": 1524.34,
+          "latency_ms": 1523.09,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1146,7 +1146,7 @@
           "service_name": "IAM",
           "operation": "CreateUser",
           "outcome": "pass",
-          "latency_ms": 11.91,
+          "latency_ms": 7.17,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1158,7 +1158,7 @@
           "service_name": "IAM",
           "operation": "CreateAccessKey",
           "outcome": "pass",
-          "latency_ms": 8.62,
+          "latency_ms": 6.05,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1170,8 +1170,8 @@
           "service_name": "S3",
           "operation": "ListBuckets",
           "outcome": "pass",
-          "latency_ms": 11.41,
-          "detail": "User: arn:aws:iam::000000000000:user/arena-nobody-f1fbfe4c is not authorized to perform: s3:ListAllMyBuckets because no identity-based policy allows the s3:ListAllMyBuckets action",
+          "latency_ms": 8.58,
+          "detail": "User: arn:aws:iam::000000000000:user/arena-nobody-2d921496 is not authorized to perform: s3:ListAllMyBuckets because no identity-based policy allows the s3:ListAllMyBuckets action",
           "http_status": 403,
           "error_code": "AccessDenied",
           "anchor": "iam-guardrails--a-user-with-no-policy-cannot-list-buckets"
@@ -1182,7 +1182,7 @@
           "service_name": "IAM",
           "operation": "PutUserPolicy",
           "outcome": "pass",
-          "latency_ms": 5.43,
+          "latency_ms": 5.41,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1194,8 +1194,8 @@
           "service_name": "S3",
           "operation": "ListBuckets",
           "outcome": "pass",
-          "latency_ms": 7.51,
-          "detail": "User: arn:aws:iam::000000000000:user/arena-nobody-f1fbfe4c is not authorized to perform: s3:ListAllMyBuckets with an explicit deny in an identity-based policy",
+          "latency_ms": 7.07,
+          "detail": "User: arn:aws:iam::000000000000:user/arena-nobody-2d921496 is not authorized to perform: s3:ListAllMyBuckets with an explicit deny in an identity-based policy",
           "http_status": 403,
           "error_code": "AccessDenied",
           "anchor": "iam-guardrails--the-explicit-deny-blocks-the-user"
@@ -1206,7 +1206,7 @@
           "service_name": "IAM",
           "operation": "PutUserPolicy",
           "outcome": "pass",
-          "latency_ms": 22.3,
+          "latency_ms": 16.09,
           "detail": "",
           "http_status": 200,
           "error_code": null,
@@ -1218,8 +1218,8 @@
           "service_name": "S3",
           "operation": "GetObject",
           "outcome": "pass",
-          "latency_ms": 15.43,
-          "detail": "User: arn:aws:iam::000000000000:user/emulator is not authorized to perform: s3:GetObject on resource: \"arn:aws:s3:::arena-locked-f1fbfe4c/note.txt\" with an explicit deny in a resource-based policy",
+          "latency_ms": 13.89,
+          "detail": "User: arn:aws:iam::000000000000:user/emulator is not authorized to perform: s3:GetObject on resource: \"arn:aws:s3:::arena-locked-2d921496/note.txt\" with an explicit deny in a resource-based policy",
           "http_status": 403,
           "error_code": "AccessDenied",
           "anchor": "iam-guardrails--a-bucket-policy-deny-is-enforced"
@@ -1230,7 +1230,7 @@
           "service_name": "IAM",
           "operation": "SimulatePrincipalPolicy",
           "outcome": "divergent",
-          "latency_ms": 14.61,
+          "latency_ms": 12.43,
           "detail": "SimulatePrincipalPolicy says implicitDeny for s3:ListAllMyBuckets, but the built-in emulator key listed buckets",
           "http_status": 200,
           "error_code": null,
@@ -1248,7 +1248,7 @@
           "service_name": "S3",
           "operation": "ListBuckets",
           "outcome": "pass",
-          "latency_ms": 15.16,
+          "latency_ms": 13.25,
           "detail": "User: arn:aws:iam::000000000000:user/emulator is not authorized to perform: s3:ListAllMyBuckets with an explicit deny in an identity-based policy",
           "http_status": 403,
           "error_code": "AccessDenied",
@@ -1269,11 +1269,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 4,
-        "min": 3.37,
-        "mean": 3.92,
-        "p50": 3.82,
-        "p95": 4.6,
-        "max": 4.67
+        "min": 2.87,
+        "mean": 3.35,
+        "p50": 3.34,
+        "p95": 3.84,
+        "max": 3.87
       }
     },
     {
@@ -1287,11 +1287,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 2,
-        "min": 3.04,
-        "mean": 3.3,
-        "p50": 3.3,
-        "p95": 3.53,
-        "max": 3.55
+        "min": 2.5,
+        "mean": 2.79,
+        "p50": 2.79,
+        "p95": 3.04,
+        "max": 3.07
       }
     },
     {
@@ -1305,11 +1305,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 7,
-        "min": 2.75,
-        "mean": 3.21,
-        "p50": 3.14,
-        "p95": 3.75,
-        "max": 3.83
+        "min": 2.29,
+        "mean": 2.55,
+        "p50": 2.62,
+        "p95": 2.84,
+        "max": 2.91
       }
     },
     {
@@ -1323,11 +1323,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 6,
-        "min": 1.93,
-        "mean": 3.91,
-        "p50": 4.24,
-        "p95": 5.86,
-        "max": 6.19
+        "min": 2.23,
+        "mean": 3.81,
+        "p50": 3.62,
+        "p95": 6.33,
+        "max": 7.09
       }
     },
     {
@@ -1341,11 +1341,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 17,
-        "min": 1.38,
-        "mean": 2.97,
-        "p50": 2.89,
-        "p95": 4.88,
-        "max": 5.05
+        "min": 1.26,
+        "mean": 2.68,
+        "p50": 2.65,
+        "p95": 3.82,
+        "max": 4.99
       }
     },
     {
@@ -1359,11 +1359,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 2,
-        "min": 3.02,
-        "mean": 3.05,
-        "p50": 3.05,
-        "p95": 3.07,
-        "max": 3.08
+        "min": 2.55,
+        "mean": 2.57,
+        "p50": 2.57,
+        "p95": 2.58,
+        "max": 2.58
       }
     },
     {
@@ -1377,11 +1377,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 9,
-        "min": 2.02,
-        "mean": 4.01,
-        "p50": 3.1,
-        "p95": 8.16,
-        "max": 8.87
+        "min": 2.25,
+        "mean": 3.45,
+        "p50": 3.14,
+        "p95": 6.29,
+        "max": 8.16
       }
     },
     {
@@ -1395,11 +1395,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 9,
-        "min": 1.68,
-        "mean": 2.98,
-        "p50": 1.95,
-        "p95": 5.58,
-        "max": 5.92
+        "min": 1.93,
+        "mean": 2.88,
+        "p50": 2.37,
+        "p95": 5.15,
+        "max": 6.3
       }
     },
     {
@@ -1413,11 +1413,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 9,
-        "min": 1.9,
-        "mean": 668.37,
-        "p50": 2.84,
-        "p95": 2998.53,
-        "max": 2998.65
+        "min": 1.98,
+        "mean": 668.54,
+        "p50": 2.99,
+        "p95": 2999.31,
+        "max": 2999.66
       }
     },
     {
@@ -1431,11 +1431,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 2,
-        "min": 3.01,
-        "mean": 3.48,
-        "p50": 3.48,
-        "p95": 3.91,
-        "max": 3.96
+        "min": 2.6,
+        "mean": 3.09,
+        "p50": 3.09,
+        "p95": 3.53,
+        "max": 3.58
       }
     },
     {
@@ -1449,11 +1449,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 13,
-        "min": 1.77,
-        "mean": 18.92,
-        "p50": 3.18,
-        "p95": 86.02,
-        "max": 202.94
+        "min": 2.11,
+        "mean": 13.52,
+        "p50": 2.72,
+        "p95": 58.99,
+        "max": 139.73
       }
     },
     {
@@ -1467,11 +1467,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 25,
-        "min": 1.48,
-        "mean": 3.39,
-        "p50": 3.22,
-        "p95": 5.42,
-        "max": 7.16
+        "min": 1.52,
+        "mean": 2.89,
+        "p50": 2.8,
+        "p95": 4.09,
+        "max": 4.89
       }
     },
     {
@@ -1485,11 +1485,11 @@
       "blocked": 0,
       "latency_ms": {
         "n": 8,
-        "min": 1.05,
-        "mean": 2.66,
-        "p50": 1.9,
-        "p95": 6.4,
-        "max": 8.17
+        "min": 1.06,
+        "mean": 2.05,
+        "p50": 1.92,
+        "p95": 3.29,
+        "max": 3.45
       }
     }
   ],
@@ -1585,7 +1585,7 @@
       "service_name": "CodeBuild",
       "operation": "BatchGetBuilds",
       "title": "The build recorded the buildspec output",
-      "detail": "build status is SUCCEEDED but nothing recorded arena-marker-f1fbfe4c; BUILD durationInSeconds=0, logs={'groupName': '/aws/codebuild/arena-build-f1fbfe4c', 'streamName': 'd1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29', 'deepLink': 'https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-f1fbfe4c;stream=d1edfc81-8cd1-8ae8-a2fa-e39bc1a52f29', 'cloudWatchLogsAr",
+      "detail": "build status is SUCCEEDED but nothing recorded arena-marker-2d921496; BUILD durationInSeconds=0, logs={'groupName': '/aws/codebuild/arena-build-2d921496', 'streamName': '83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0', 'deepLink': 'https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/arena-build-2d921496;stream=83fd7b9a-b1cd-8f81-9483-356b3ac5f3c0', 'cloudWatchLogsAr",
       "http_status": null,
       "error_code": null,
       "anchor": "cicd-control-plane--the-build-recorded-the-buildspec-output"
@@ -1609,266 +1609,252 @@
       "operation": "CreateBucket",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.89
+      "latency_ms": 3.53
     },
     {
       "service": "s3",
       "operation": "PutObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.62
+      "latency_ms": 3.26
     },
     {
       "service": "s3",
       "operation": "PutBucketWebsite",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.9
+      "latency_ms": 2.56
     },
     {
       "service": "s3",
       "operation": "GetObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.44
+      "latency_ms": 3.06
     },
     {
       "service": "s3",
       "operation": "ListObjectsV2",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.22
+      "latency_ms": 2.89
     },
     {
       "service": "s3",
       "operation": "GetBucketWebsite",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.83
+      "latency_ms": 2.5
     },
     {
       "service": "s3",
       "operation": "DeleteObject",
       "http_status": 204,
       "error_code": null,
-      "latency_ms": 2.88
+      "latency_ms": 2.52
     },
     {
       "service": "s3",
       "operation": "DeleteBucket",
       "http_status": 204,
       "error_code": null,
-      "latency_ms": 2.84
+      "latency_ms": 2.33
     },
     {
       "service": "s3",
       "operation": "HeadBucket",
       "http_status": 404,
       "error_code": "404",
-      "latency_ms": 4.14
+      "latency_ms": 3.44
     },
     {
       "service": "dynamodb",
       "operation": "CreateTable",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.66
+      "latency_ms": 3.07
     },
     {
       "service": "dynamodb",
       "operation": "DescribeTable",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2998.65
+      "latency_ms": 2999.66
     },
     {
       "service": "iam",
       "operation": "CreateRole",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 4.84
+      "latency_ms": 4.99
     },
     {
       "service": "iam",
       "operation": "PutRolePolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.67
+      "latency_ms": 2.79
     },
     {
       "service": "lambda",
       "operation": "CreateFunction",
       "http_status": 201,
       "error_code": null,
-      "latency_ms": 5.36
+      "latency_ms": 5.17
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.18
+      "latency_ms": 3.2
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.0
+      "latency_ms": 2.21
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.95
+      "latency_ms": 2.29
     },
     {
       "service": "lambda",
       "operation": "Invoke",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 202.94
+      "latency_ms": 139.73
     },
     {
       "service": "dynamodb",
       "operation": "GetItem",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.28
+      "latency_ms": 3.27
     },
     {
       "service": "dynamodb",
       "operation": "CreateTable",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.84
+      "latency_ms": 2.99
     },
     {
       "service": "dynamodb",
       "operation": "DescribeTable",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2998.34
+      "latency_ms": 2998.79
     },
     {
       "service": "sqs",
       "operation": "CreateQueue",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.12
+      "latency_ms": 3.45
     },
     {
       "service": "sqs",
       "operation": "GetQueueAttributes",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.39
+      "latency_ms": 1.37
     },
     {
       "service": "iam",
       "operation": "CreateRole",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.79
+      "latency_ms": 3.23
     },
     {
       "service": "iam",
       "operation": "PutRolePolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.46
+      "latency_ms": 2.65
     },
     {
       "service": "lambda",
       "operation": "CreateFunction",
       "http_status": 201,
       "error_code": null,
-      "latency_ms": 3.37
+      "latency_ms": 4.96
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 8.07
+      "latency_ms": 2.89
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.9
+      "latency_ms": 2.28
     },
     {
       "service": "lambda",
       "operation": "GetFunction",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 7.24
+      "latency_ms": 2.14
     },
     {
       "service": "lambda",
       "operation": "CreateEventSourceMapping",
       "http_status": 202,
       "error_code": null,
-      "latency_ms": 3.8
+      "latency_ms": 3.89
     },
     {
       "service": "lambda",
       "operation": "GetEventSourceMapping",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.58
+      "latency_ms": 2.72
     },
     {
       "service": "lambda",
       "operation": "GetEventSourceMapping",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.84
+      "latency_ms": 2.12
     },
     {
       "service": "lambda",
       "operation": "GetEventSourceMapping",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.77
+      "latency_ms": 2.11
     },
     {
       "service": "sqs",
       "operation": "SendMessage",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.91
+      "latency_ms": 2.99
     },
     {
       "service": "dynamodb",
       "operation": "GetItem",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.77
+      "latency_ms": 2.65
     },
     {
       "service": "sqs",
       "operation": "GetQueueAttributes",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.41
-    },
-    {
-      "service": "dynamodb",
-      "operation": "GetItem",
-      "http_status": 200,
-      "error_code": null,
-      "latency_ms": 1.9
-    },
-    {
-      "service": "sqs",
-      "operation": "GetQueueAttributes",
-      "http_status": 200,
-      "error_code": null,
-      "latency_ms": 1.08
+      "latency_ms": 2.45
     },
     {
       "service": "dynamodb",
@@ -1882,518 +1868,532 @@
       "operation": "GetQueueAttributes",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.19
+      "latency_ms": 1.06
     },
     {
       "service": "dynamodb",
       "operation": "GetItem",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.92
+      "latency_ms": 2.11
     },
     {
       "service": "sqs",
       "operation": "GetQueueAttributes",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.05
+      "latency_ms": 1.48
+    },
+    {
+      "service": "dynamodb",
+      "operation": "GetItem",
+      "http_status": 200,
+      "error_code": null,
+      "latency_ms": 2.3
+    },
+    {
+      "service": "sqs",
+      "operation": "GetQueueAttributes",
+      "http_status": 200,
+      "error_code": null,
+      "latency_ms": 1.27
     },
     {
       "service": "cloudformation",
       "operation": "CreateStack",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 8.87
+      "latency_ms": 8.16
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.35
+      "latency_ms": 3.14
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.12
+      "latency_ms": 2.39
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.02
+      "latency_ms": 2.25
     },
     {
       "service": "cloudformation",
       "operation": "ListStackResources",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.1
+      "latency_ms": 3.22
     },
     {
       "service": "s3",
       "operation": "HeadBucket",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.73
+      "latency_ms": 2.61
     },
     {
       "service": "sqs",
       "operation": "GetQueueUrl",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 8.17
+      "latency_ms": 2.35
     },
     {
       "service": "cloudformation",
       "operation": "DeleteStack",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 7.1
+      "latency_ms": 3.49
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.1
+      "latency_ms": 2.88
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.2
+      "latency_ms": 2.3
     },
     {
       "service": "cloudformation",
       "operation": "DescribeStacks",
       "http_status": 400,
       "error_code": "ValidationError",
-      "latency_ms": 4.2
+      "latency_ms": 3.24
     },
     {
       "service": "s3",
       "operation": "HeadBucket",
       "http_status": 404,
       "error_code": "404",
-      "latency_ms": 4.86
+      "latency_ms": 4.21
     },
     {
       "service": "iam",
       "operation": "ListUsers",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.43
+      "latency_ms": 3.06
     },
     {
       "service": "iam",
       "operation": "CreateUser",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.34
+      "latency_ms": 2.82
     },
     {
       "service": "iam",
       "operation": "ListUsers",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.02
+      "latency_ms": 2.64
     },
     {
       "service": "sso-admin",
       "operation": "ListInstances",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.04
+      "latency_ms": 2.5
     },
     {
       "service": "identitystore",
       "operation": "CreateUser",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.96
+      "latency_ms": 3.58
     },
     {
       "service": "identitystore",
       "operation": "ListUsers",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.01
+      "latency_ms": 2.6
     },
     {
       "service": "organizations",
       "operation": "DescribeOrganization",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.83
+      "latency_ms": 2.38
     },
     {
       "service": "organizations",
       "operation": "ListRoots",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.93
+      "latency_ms": 2.29
     },
     {
       "service": "organizations",
       "operation": "CreateOrganizationalUnit",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.14
+      "latency_ms": 2.62
     },
     {
       "service": "organizations",
       "operation": "ListOrganizationalUnitsForParent",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.75
+      "latency_ms": 2.31
     },
     {
       "service": "organizations",
       "operation": "ListAccounts",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 3.16
+      "latency_ms": 2.66
     },
     {
       "service": "organizations",
       "operation": "DescribeAccount",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 3.56
+      "latency_ms": 2.91
     },
     {
       "service": "organizations",
       "operation": "ListChildren",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 3.11
+      "latency_ms": 2.69
     },
     {
       "service": "sso-admin",
       "operation": "CreatePermissionSet",
       "http_status": 400,
       "error_code": "ValidationException",
-      "latency_ms": 3.55
+      "latency_ms": 3.07
     },
     {
       "service": "budgets",
       "operation": "CreateBudget",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.08
+      "latency_ms": 2.55
     },
     {
       "service": "budgets",
       "operation": "DescribeBudgets",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.02
+      "latency_ms": 2.58
     },
     {
       "service": "s3",
       "operation": "CreateBucket",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.41
+      "latency_ms": 2.67
     },
     {
       "service": "s3",
       "operation": "PutObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.31
+      "latency_ms": 2.04
     },
     {
       "service": "s3",
       "operation": "GetObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.47
+      "latency_ms": 3.05
     },
     {
       "service": "ce",
       "operation": "GetCostAndUsage",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 4.21
+      "latency_ms": 3.71
     },
     {
       "service": "ce",
       "operation": "GetDimensionValues",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 3.43
+      "latency_ms": 2.97
     },
     {
       "service": "ce",
       "operation": "GetCostForecast",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 4.67
+      "latency_ms": 3.87
     },
     {
       "service": "ce",
       "operation": "GetTags",
       "http_status": 501,
       "error_code": "NotImplemented",
-      "latency_ms": 3.37
+      "latency_ms": 2.87
     },
     {
       "service": "iam",
       "operation": "CreateRole",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.09
+      "latency_ms": 2.76
     },
     {
       "service": "codebuild",
       "operation": "CreateProject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 4.49
+      "latency_ms": 3.66
     },
     {
       "service": "codebuild",
       "operation": "StartBuild",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 4.85
+      "latency_ms": 4.04
     },
     {
       "service": "codebuild",
       "operation": "BatchGetBuilds",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 4.0
+      "latency_ms": 3.57
     },
     {
       "service": "codebuild",
       "operation": "BatchGetBuilds",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.02
+      "latency_ms": 2.23
     },
     {
       "service": "codebuild",
       "operation": "BatchGetBuilds",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.93
+      "latency_ms": 2.24
     },
     {
       "service": "codebuild",
       "operation": "BatchGetBuilds",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 6.19
+      "latency_ms": 7.09
     },
     {
       "service": "s3",
       "operation": "CreateBucket",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.99
+      "latency_ms": 3.29
     },
     {
       "service": "s3",
       "operation": "PutObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.81
+      "latency_ms": 2.15
     },
     {
       "service": "codepipeline",
       "operation": "CreatePipeline",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 5.92
+      "latency_ms": 6.3
     },
     {
       "service": "codepipeline",
       "operation": "StartPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.59
+      "latency_ms": 3.43
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 3.1
+      "latency_ms": 2.77
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.85
+      "latency_ms": 2.19
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.95
+      "latency_ms": 2.37
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.68
+      "latency_ms": 1.93
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.81
+      "latency_ms": 2.1
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.84
+      "latency_ms": 2.17
     },
     {
       "service": "codepipeline",
       "operation": "GetPipelineExecution",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 5.07
+      "latency_ms": 2.67
     },
     {
       "service": "iam",
       "operation": "CreateUser",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 5.05
+      "latency_ms": 3.52
     },
     {
       "service": "iam",
       "operation": "CreateAccessKey",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 4.52
+      "latency_ms": 3.01
     },
     {
       "service": "s3",
       "operation": "ListBuckets",
       "http_status": 403,
       "error_code": "AccessDenied",
-      "latency_ms": 5.57
+      "latency_ms": 4.89
     },
     {
       "service": "iam",
       "operation": "PutUserPolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.43
+      "latency_ms": 2.55
     },
     {
       "service": "s3",
       "operation": "ListBuckets",
       "http_status": 403,
       "error_code": "AccessDenied",
-      "latency_ms": 3.82
+      "latency_ms": 3.61
     },
     {
       "service": "iam",
       "operation": "CreateUser",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.98
+      "latency_ms": 2.65
     },
     {
       "service": "iam",
       "operation": "CreateAccessKey",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.6
+      "latency_ms": 1.43
     },
     {
       "service": "iam",
       "operation": "PutUserPolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.39
+      "latency_ms": 1.26
     },
     {
       "service": "s3",
       "operation": "ListBuckets",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 7.16
+      "latency_ms": 2.8
     },
     {
       "service": "s3",
       "operation": "CreateBucket",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.59
+      "latency_ms": 2.46
     },
     {
       "service": "s3",
       "operation": "PutObject",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.45
+      "latency_ms": 1.87
     },
     {
       "service": "s3",
       "operation": "PutBucketPolicy",
       "http_status": 204,
       "error_code": null,
-      "latency_ms": 1.48
+      "latency_ms": 1.52
     },
     {
       "service": "s3",
       "operation": "GetObject",
       "http_status": 403,
       "error_code": "AccessDenied",
-      "latency_ms": 3.29
+      "latency_ms": 2.87
     },
     {
       "service": "iam",
       "operation": "SimulatePrincipalPolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.89
+      "latency_ms": 2.63
     },
     {
       "service": "s3",
       "operation": "ListBuckets",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.98
+      "latency_ms": 2.71
     },
     {
       "service": "iam",
       "operation": "PutUserPolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 2.54
+      "latency_ms": 2.35
     },
     {
       "service": "s3",
       "operation": "ListBuckets",
       "http_status": 403,
       "error_code": "AccessDenied",
-      "latency_ms": 3.99
+      "latency_ms": 3.46
     },
     {
       "service": "iam",
       "operation": "DeleteUserPolicy",
       "http_status": 200,
       "error_code": null,
-      "latency_ms": 1.38
+      "latency_ms": 1.27
     }
   ]
 }
